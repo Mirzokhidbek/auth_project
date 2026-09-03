@@ -53,16 +53,16 @@ const compareProduct = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Narx solishtirish xatoligi:', error);
+        console.error('Price comparison error:', error);
         res.status(500).json({
             success: false,
-            message: error.message || 'AI tahlil jarayonida xatolik yuz berdi'
+            message: error.message || 'Error occurred during AI price comparison'
         });
     }
 };
 
 /**
- * @desc    Foydalanuvchining o'tgan qidiruvlari tarixini olish
+ * @desc    Get user comparison search history
  * @route   GET /api/compare/history
  * @access  Private
  */
@@ -71,23 +71,23 @@ const getHistory = async (req, res) => {
         const history = await ComparisonHistory.find({ userId: req.user.id })
             .sort({ createdAt: -1 })
             .limit(12)
-            .select('query productName bestPrice createdAt');
+            .select('query productName bestPrice createdAt data');
 
         res.status(200).json({
             success: true,
             history
         });
     } catch (error) {
-        console.error('Tarixni olishda xatolik:', error);
+        console.error('Error fetching history:', error);
         res.status(500).json({
             success: false,
-            message: 'Tarixni yuklashda xatolik yuz berdi'
+            message: 'Failed to retrieve search history'
         });
     }
 };
 
 /**
- * @desc    Bitta qidiruv tarixini o'chirish
+ * @desc    Delete single history item
  * @route   DELETE /api/compare/history/:id
  * @access  Private
  */
@@ -98,13 +98,13 @@ const deleteHistoryItem = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: 'Qidiruv tarixi o\'chirildi'
+            message: 'History item removed'
         });
     } catch (error) {
-        console.error('Tarixni o\'chirishda xatolik:', error);
+        console.error('Error deleting history item:', error);
         res.status(500).json({
             success: false,
-            message: 'O\'chirishda xatolik'
+            message: 'Failed to delete history item'
         });
     }
 };

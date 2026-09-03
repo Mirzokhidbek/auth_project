@@ -33,6 +33,8 @@ const comparePricesWithGemini = async (userQuery, lang = 'en') => {
 3. 주요 상세 스펙(프로세서, RAM, SSD, 디스플레이, 배터리 등)을 체계적으로 정리하세요.
 4. 한국 소비자 환경(배송, A/S 보증, 결제 혜택)에 맞춘 전문적인 추천 의견을 제공하세요.
 
+언어 규칙: 모든 텍스트(제품명, 카테고리, 요약, 절약 문구, 배송, 보증, 스펙, 전문가 평가, 당근마켓 팁 등)는 100% 자연스러운 한국어로만 작성해야 합니다.
+
 엄격한 요구사항: 반드시 아래 JSON 형식으로만 응답하세요. 다른 설명이나 마크다운 텍스트 없이 유효한 JSON만 반환해야 합니다:
 {
   "productName": "제품 공식 명칭 (예: Apple MacBook Pro 14 (M4 칩, 2024))",
@@ -132,6 +134,13 @@ YOUR TASK:
 2. Identify the absolute Best Deal in South Korea and calculate the exact savings in Korean Won (KRW / ₩).
 3. Compare key technical specifications (Processor, RAM, Storage, Display, Battery).
 4. Provide a professional buyer's recommendation tailored for consumers in South Korea.
+
+CRITICAL LANGUAGE REQUIREMENT:
+The user has selected the ENGLISH interface. Therefore:
+1. ALL textual answers and values (productName, category, overview, savings, store badges, delivery text, warranty description, specs feature names, specs values, buyer recommendation verdict, whoShouldBuy, whoShouldWait, and Karrot condition/tip) MUST BE 100% IN FLUENT ENGLISH!
+2. Do NOT write sentences in Korean. All explanations, tips, features, and verdicts must be in English.
+3. Write store names in English (e.g., 'Coupang', 'Naver Shopping', '11Street', 'Lotte Hi-Mart', 'Karrot Market (Danggeun)', 'Apple Korea Official Store').
+4. Prices should be displayed in Korean Won (₩) and USD ($).
 
 STRICT REQUIREMENT: Respond ONLY with valid JSON. Do not include any markdown or text outside of the JSON object:
 {

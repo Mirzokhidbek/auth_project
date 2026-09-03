@@ -138,7 +138,12 @@ export class AuthManager {
                         this.onAuthSuccess(data.user);
                     }, 500);
                 } else {
-                    this.showAlert('error', data.message || 'Error occurred');
+                    let errorMsg = t('alertGenericError');
+                    if (data.code === 'EMAIL_ALREADY_EXISTS') errorMsg = t('alertEmailExists');
+                    else if (data.code === 'FIELDS_REQUIRED') errorMsg = t('alertFieldsRequired');
+                    else if (data.code === 'PASSWORD_TOO_SHORT') errorMsg = t('alertPasswordLength');
+                    else if (data.message) errorMsg = data.message;
+                    this.showAlert('error', errorMsg);
                 }
             } catch (err) {
                 this.showAlert('error', t('alertConnectionError'));
@@ -171,7 +176,10 @@ export class AuthManager {
                         this.onAuthSuccess(data.user);
                     }, 500);
                 } else {
-                    this.showAlert('error', data.message || 'Invalid email or password');
+                    let errorMsg = t('alertInvalidCredentials');
+                    if (data.code === 'FIELDS_REQUIRED') errorMsg = t('alertFieldsRequired');
+                    else if (data.message) errorMsg = data.message;
+                    this.showAlert('error', errorMsg);
                 }
             } catch (err) {
                 this.showAlert('error', t('alertConnectionError'));

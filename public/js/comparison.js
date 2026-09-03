@@ -78,15 +78,33 @@ export class ComparisonManager {
             // Refresh history text in new language
             this.loadHistory();
 
-            // Re-render store deal buttons and badges if results are open
-            if (this.lastComparisonData && this.resultsContainer && this.resultsContainer.style.display !== 'none') {
-                this.renderResults(this.lastComparisonData);
+            // If results are currently visible on the screen, automatically re-compare in the new language!
+            const hasActiveResults = this.resultsContainer && this.resultsContainer.style.display !== 'none';
+            const currentQuery = this.lastQuery || this.input?.value?.trim();
+
+            if (hasActiveResults && currentQuery) {
+                if (newLang === 'en') {
+                    if (this.input.value.includes('맥북')) this.input.value = 'MacBook M4';
+                    else if (this.input.value.includes('아이폰')) this.input.value = 'iPhone 16 Pro Max';
+                    else if (this.input.value.includes('소니')) this.input.value = 'Sony WH-1000XM5';
+                    else if (this.input.value.includes('플스') || this.input.value.includes('PS5')) this.input.value = 'PS5 Pro';
+                } else if (newLang === 'ko') {
+                    if (this.input.value.toLowerCase().includes('macbook')) this.input.value = '맥북 M4';
+                    else if (this.input.value.toLowerCase().includes('iphone')) this.input.value = '아이폰 16 프로 맥스';
+                    else if (this.input.value.toLowerCase().includes('sony')) this.input.value = '소니 WH-1000XM5';
+                    else if (this.input.value.toLowerCase().includes('ps5')) this.input.value = 'PS5 프로';
+                }
+
+                const queryToRun = this.input?.value?.trim() || currentQuery;
+                this.executeComparison(queryToRun);
             }
         });
     }
 
     async executeComparison(query) {
         if (!query || query.trim().length === 0) return;
+
+        this.lastQuery = query.trim();
 
         // UI Loading state
         if (this.resultsContainer) this.resultsContainer.style.display = 'none';
