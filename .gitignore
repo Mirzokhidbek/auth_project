@@ -1,6 +1,7 @@
 # Maxfiy ma'lumotlar va kalitlar (Hech qachon GitHubga yuklanmasligi kerak!)
 .env
 .env.local
+.env.example
 
 # Bog'liqliklar (katta hajmdagi kutubxonalar)
 node_modules/
