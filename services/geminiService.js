@@ -24,7 +24,7 @@ const comparePrices = async (userQuery, lang = 'en') => {
 
     // Tilga moslashtirilgan professional prompt (English or Korean)
     const prompt = isKorean ? `
-당신은 "NeuroFox AI" 전문 가격 분석가이자 시장 전문가입니다.
+당신은 "Pricely AI" 전문 가격 분석가이자 시장 전문가입니다.
 사용자 검색어: "${userQuery}".
 
 임무:
@@ -126,7 +126,7 @@ const comparePrices = async (userQuery, lang = 'en') => {
   }
 }
 ` : `
-You are "NeuroFox AI", an expert hardware market analyst specializing in the South Korean electronics and retail market.
+You are "Pricely AI", an expert hardware market analyst specializing in the South Korean electronics and retail market.
 User query: "${userQuery}".
 
 YOUR TASK:
