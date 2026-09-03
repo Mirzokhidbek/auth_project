@@ -4,15 +4,18 @@
 
 export const translations = {
     en: {
-        // Brand & Vision
-        brandVisionTitle: "Create Your Vision",
-        brandVisionSubtitle: "AI-assisted workspace to craft and elevate your ideas.",
-        visionSlide1Title: "Create Your Vision",
-        visionSlide1Sub: "AI-assisted workspace to craft and elevate your ideas.",
-        visionSlide2Title: "Unleash Imagination",
-        visionSlide2Sub: "Compare prices and discover optimal deals across multiple marketplaces in real time.",
-        visionSlide3Title: "Studio-Grade Power",
-        visionSlide3Sub: "Powered by advanced Pricely AI for precision market analytics.",
+        // Brand & Vision (Pricely Meaning & Purpose)
+        brandVisionTitle: "Pricely AI Intelligence",
+        brandVisionSubtitle: "Real-time market price discovery across Coupang, Naver, and Karrot.",
+        visionSlide1Title: "Pricely AI Intelligence",
+        visionSlide1Sub: "Real-time market price discovery across Coupang, Naver, and Karrot.",
+        visionSlide2Title: "Find The Best Deal",
+        visionSlide2Sub: "Instant price comparison, savings calculation, and retail analytics.",
+        visionSlide3Title: "Retail & Second-Hand",
+        visionSlide3Sub: "Compare brand-new retail with Karrot second-hand market prices in one place.",
+
+        // Brand Badge Tag
+        brandBadgeTag: "AI",
 
         // Auth Tabs & Titles
         tabSignUp: "Sign Up",
@@ -51,7 +54,7 @@ export const translations = {
         alertEnterQuery: "Please enter a product query (e.g. 'MacBook M4')",
 
         // Workspace Navigation
-        engineBadge: "⚡ Pricely AI Engine",
+        engineBadge: "Pricely AI Engine",
         btnSignOut: "Sign Out",
 
         // Hero Search Section
@@ -100,15 +103,18 @@ export const translations = {
         historyEmpty: "No search history yet"
     },
     ko: {
-        // Brand & Vision
-        brandVisionTitle: "비전을 현실로",
-        brandVisionSubtitle: "당신의 아이디어를 실현하고 발전시키는 AI 워크스페이스.",
-        visionSlide1Title: "비전을 현실로",
-        visionSlide1Sub: "당신의 아이디어를 실현하고 발전시키는 AI 워크스페이스.",
-        visionSlide2Title: "무한한 상상력",
-        visionSlide2Sub: "모든 쇼핑몰의 최저가를 실시간으로 비교하고 최고의 선택을 찾아보세요.",
-        visionSlide3Title: "압도적인 AI 성능",
-        visionSlide3Sub: "최첨단 Pricely AI 기반의 정밀한 시장 가격 분석 엔진.",
+        // Brand & Vision (Pricely Meaning & Purpose)
+        brandVisionTitle: "Pricely AI 스마트 가격 분석",
+        brandVisionSubtitle: "쿠팡, 네이버, 당근마켓의 실시간 최저가를 한눈에 비교하세요.",
+        visionSlide1Title: "Pricely AI 스마트 가격 분석",
+        visionSlide1Sub: "쿠팡, 네이버, 당근마켓의 실시간 최저가를 한눈에 비교하세요.",
+        visionSlide2Title: "가장 확실한 최저가 검색",
+        visionSlide2Sub: "실시간 판매처별 가격 비교와 절약 금액을 AI로 즉시 산출합니다.",
+        visionSlide3Title: "신품과 당근 중고 시세 비교",
+        visionSlide3Sub: "공식 정품과 당근마켓 실시간 중고 시세를 한 화면에서 비교하세요.",
+
+        // Brand Badge Tag
+        brandBadgeTag: "AI",
 
         // Auth Tabs & Titles
         tabSignUp: "회원가입",
@@ -147,7 +153,7 @@ export const translations = {
         alertEnterQuery: "검색어를 입력해주세요 (예: '맥북 M4')",
 
         // Workspace Navigation
-        engineBadge: "⚡ Pricely AI 엔진",
+        engineBadge: "Pricely AI 엔진",
         btnSignOut: "로그아웃",
 
         // Hero Search Section
