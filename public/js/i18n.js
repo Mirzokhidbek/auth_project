@@ -12,7 +12,7 @@ export const translations = {
         visionSlide2Title: "Unleash Imagination",
         visionSlide2Sub: "Compare prices and discover optimal deals across multiple marketplaces in real time.",
         visionSlide3Title: "Studio-Grade Power",
-        visionSlide3Sub: "Powered by Google Gemini 3.6 Flash for precision market analytics.",
+        visionSlide3Sub: "Powered by advanced NeuroFox AI for precision market analytics.",
 
         // Auth Tabs & Titles
         tabSignUp: "Sign Up",
@@ -51,14 +51,14 @@ export const translations = {
         alertEnterQuery: "Please enter a product query (e.g. 'MacBook M4')",
 
         // Workspace Navigation
-        engineBadge: "⚡ Gemini 3.6 Flash",
+        engineBadge: "⚡ NeuroFox AI Engine",
         btnSignOut: "Sign Out",
 
         // Hero Search Section
         heroBadge: "✨ Smart Market Analytics & Price Comparison",
         heroHeading1: "Find The Best Price with ",
         heroHeadingSpan: "AI Intelligence",
-        heroSubtext: "Type any product query (e.g., 'MacBook M4', 'iPhone 16 Pro'). Gemini AI compares prices across stores, pinpoints the cheapest deal, and analyzes specifications.",
+        heroSubtext: "Type any product query (e.g., 'MacBook M4', 'iPhone 16 Pro'). NeuroFox AI compares prices across stores, pinpoints the cheapest deal, and analyzes specifications.",
         searchPlaceholder: "What are you looking for? e.g., 'I need a MacBook M4'",
         btnAiCompare: "AI Compare",
         quickQueriesLabel: "Popular searches:",
@@ -68,7 +68,7 @@ export const translations = {
         chipPS5: "🎮 PS5 Pro",
 
         // AI Loading
-        loadingTitle: "Gemini 3.6 Flash is analyzing real-time market prices...",
+        loadingTitle: "NeuroFox AI is analyzing real-time market prices...",
         loadingStep1: "🏪 Scanning trusted online retailers and inventory...",
         loadingStep2: "🏷️ Calculating discounts, savings, and the optimal Best Deal...",
         loadingStep3: "⚙️ Comparing technical specifications and formulating expert verdict...",
@@ -108,7 +108,7 @@ export const translations = {
         visionSlide2Title: "무한한 상상력",
         visionSlide2Sub: "모든 쇼핑몰의 최저가를 실시간으로 비교하고 최고의 선택을 찾아보세요.",
         visionSlide3Title: "압도적인 AI 성능",
-        visionSlide3Sub: "Google Gemini 3.6 Flash 기반의 정밀한 시장 가격 분석 엔진.",
+        visionSlide3Sub: "최첨단 NeuroFox AI 기반의 정밀한 시장 가격 분석 엔진.",
 
         // Auth Tabs & Titles
         tabSignUp: "회원가입",
@@ -147,14 +147,14 @@ export const translations = {
         alertEnterQuery: "검색어를 입력해주세요 (예: '맥북 M4')",
 
         // Workspace Navigation
-        engineBadge: "⚡ Gemini 3.6 Flash 엔진",
+        engineBadge: "⚡ NeuroFox AI 엔진",
         btnSignOut: "로그아웃",
 
         // Hero Search Section
         heroBadge: "✨ 스마트 시장 분석 및 최저가 비교",
         heroHeading1: "AI로 찾는 ",
         heroHeadingSpan: "가장 스마트한 최저가",
-        heroSubtext: "원하는 제품(예: '맥북 M4', '아이폰 16 프로')을 입력하세요. Gemini AI가 쿠팡, 네이버, 11번가 등 주요 쇼핑몰을 비교 분석하여 최저가와 맞춤 스펙을 추천합니다.",
+        heroSubtext: "원하는 제품(예: '맥북 M4', '아이폰 16 프로')을 입력하세요. NeuroFox AI가 쿠팡, 네이버, 11번가 등 주요 쇼핑몰을 비교 분석하여 최저가와 맞춤 스펙을 추천합니다.",
         searchPlaceholder: "찾으시는 제품을 입력하세요 (예: '맥북 M4 필요해')",
         btnAiCompare: "AI 최저가 비교",
         quickQueriesLabel: "인기 검색어:",
@@ -164,7 +164,7 @@ export const translations = {
         chipPS5: "🎮 PS5 프로",
 
         // AI Loading
-        loadingTitle: "Gemini 3.6 Flash가 실시간 시장 가격을 정밀 분석 중입니다...",
+        loadingTitle: "NeuroFox AI가 실시간 시장 가격을 정밀 분석 중입니다...",
         loadingStep1: "🏪 쿠팡, 네이버 쇼핑, 11번가, 애플 코리아 등 실시간 가격 조회 중...",
         loadingStep2: "🏷️ 최대 할인율 및 절약 금액(Best Deal) 산출 중...",
         loadingStep3: "⚙️ 하드웨어 세부 스펙 비교 및 전문가 맞춤 추천서 작성 중...",

@@ -1,14 +1,14 @@
 // ============================================================================
 // NARX SOLISHTIRISH KONTROLLERI (Comparison Controller)
 // ============================================================================
-// Foydalanuvchi so'rovini qabul qilib, Gemini orqali tahlil qilish va
-// natijalarni MongoDB bazasiga saqlash uchun kontroller.
+// Foydalanuvchi so'rovini qabul qilib, AI orqali tahlil qilish va
+// natijalarni MongoDB bazasiga saqlash hamda qaytarish logikalari.
 
-const { comparePricesWithGemini } = require('../services/geminiService');
+const { comparePrices } = require('../services/geminiService');
 const ComparisonHistory = require('../models/ComparisonHistory');
 
 /**
- * @desc    Mahsulot narxlarini AI orqali solishtirish
+ * @desc    Mahsulot bo'yicha narxlarni solishtirish
  * @route   POST /api/compare
  * @access  Private (Faqat tizimga kirganlar uchun)
  */
@@ -19,13 +19,14 @@ const compareProduct = async (req, res) => {
         if (!query || query.trim().length === 0) {
             return res.status(400).json({
                 success: false,
+                code: 'QUERY_REQUIRED',
                 message: 'Please enter a product name or query'
             });
         }
 
-        // 1. Gemini 3.6 Flash orqali narxlar va xususiyatlarni tahlil qilamiz (tanlangan tilda)
+        // 1. AI orqali narxlar va xususiyatlarni tahlil qilamiz (tanlangan tilda)
         const selectedLang = (lang === 'ko') ? 'ko' : 'en';
-        const comparisonData = await comparePricesWithGemini(query.trim(), selectedLang);
+        const comparisonData = await comparePrices(query.trim(), selectedLang);
 
         // 2. Qidiruv natijasini foydalanuvchining MongoDB profiliga saqlab qo'yamiz
         let savedHistory = null;

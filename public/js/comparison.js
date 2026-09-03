@@ -1,7 +1,7 @@
 // ============================================================================
 // AI PRICE COMPARISON MODULE (COMPARISON MANAGER)
 // ============================================================================
-// Handles: Gemini 3.6 Flash query execution, multilingual results rendering,
+// Handles: AI query execution, multilingual results rendering,
 // quick prompt chips, and search history management.
 
 import { t, getLanguage } from './i18n.js';

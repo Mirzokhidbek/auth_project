@@ -31,7 +31,7 @@ const comparisonHistorySchema = new mongoose.Schema({
         priceUSD: String,
         priceUZS: String
     },
-    // Gemini 3.6 Flash tomonidan taqdim etilgan to'liq tahlil ma'lumoti
+    // AI model tomonidan taqdim etilgan to'liq tahlil ma'lumoti
     data: {
         type: Object,
         required: true

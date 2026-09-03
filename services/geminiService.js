@@ -1,17 +1,17 @@
 // ============================================================================
-// GEMINI 3.6 FLASH NARX SOLISHTIRISH SERVISI (Gemini Service)
+// AI NARX SOLISHTIRISH SERVISI (AI Price Engine Service)
 // ============================================================================
-// Ushbu servis Google Gemini 3.6 Flash modeli orqali foydalanuvchi so'rovini
-// tahlil qiladi va O'zbekiston hamda xalqaro do'konlardagi eng yaxshi narxlar,
+// Ushbu servis ilg'or AI modeli orqali foydalanuvchi so'rovini
+// tahlil qiladi va Koreya do'konlaridagi eng yaxshi narxlar,
 // xususiyatlar va tavsiyalarni strukturalangan JSON ko'rinishida olib beradi.
 
 /**
- * Mahsulot narxlarini solishtirish uchun Gemini modeliga murojaat qilish
+ * Mahsulot narxlarini solishtirish uchun AI modeliga murojaat qilish
  * @param {string} userQuery - Foydalanuvchi kiritgan matn
  * @param {string} lang - Tanlangan til ('en' yoki 'ko')
  * @returns {Promise<Object>} - Strukturalangan narxlar va tavsiyalar ob'ekti
  */
-const comparePricesWithGemini = async (userQuery, lang = 'en') => {
+const comparePrices = async (userQuery, lang = 'en') => {
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
@@ -259,32 +259,34 @@ STRICT REQUIREMENT: Respond ONLY with valid JSON. Do not include any markdown or
             });
 
             if (response.ok) {
-                break; // Muvaffaqiyatli bo'lsa sikldan chiqamiz
+                break;
             }
 
-            // Agar 503 (vaqtinchalik yuklama) yoki 429 bo'lsa, 1.5 soniya kutib qayta urinamiz
             if ((response.status === 503 || response.status === 429) && attempts < maxAttempts) {
-                console.log(`Gemini 3.6 Flash vaqtinchalik band (${response.status}). ${attempts}-urinish kutish...`);
-                await new Promise(r => setTimeout(r, 1500 * attempts));
+                console.log(`AI Engine busy (${response.status}). Attempt ${attempts} waiting...`);
+                await new Promise(r => setTimeout(r, 2000 * attempts));
                 continue;
             }
 
             const errorText = await response.text();
-            throw new Error(`Gemini API xatoligi (${response.status}): ${errorText}`);
+            if (response.status === 429) {
+                throw new Error('AI request rate limit reached. Please wait a moment and retry.');
+            }
+            throw new Error(`AI API error (${response.status}): ${errorText}`);
         } catch (fetchErr) {
             if (attempts >= maxAttempts) throw fetchErr;
-            await new Promise(r => setTimeout(r, 1500 * attempts));
+            await new Promise(r => setTimeout(r, 2000 * attempts));
         }
     }
 
     const data = await response.json();
-    const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-    if (!rawText) {
-        throw new Error('Gemini modelidan bo\'sh javob keldi.');
+    if (!data.candidates || data.candidates.length === 0) {
+        throw new Error('AI model returned an empty response.');
     }
 
-    // JSON formatini tozalash (agar ```json ... ``` bilan o'ralgan bo'lsa)
+    const rawText = data.candidates[0].content.parts[0].text;
+
     let cleanedText = rawText.trim();
     if (cleanedText.startsWith('```json')) {
         cleanedText = cleanedText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
@@ -296,9 +298,9 @@ STRICT REQUIREMENT: Respond ONLY with valid JSON. Do not include any markdown or
         const parsedData = JSON.parse(cleanedText);
         return parsedData;
     } catch (parseError) {
-        console.error('Gemini JSON parse xatoligi. Xom matn:', rawText);
-        throw new Error('AI javobini JSON formatida o\'qib bo\'lmadi');
+        console.error('AI JSON parse error. Raw text:', rawText);
+        throw new Error('Could not parse AI response into JSON format');
     }
 };
 
-module.exports = { comparePricesWithGemini };
+module.exports = { comparePrices };
