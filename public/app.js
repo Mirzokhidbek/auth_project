@@ -1,18 +1,15 @@
 // ============================================================================
-// NEUROFOX FRONTEND — 3D PARALLAX & ANIMATION ENGINE
+// NEUROFOX AI PRICE COMPARISON PLATFORM — FRONTEND ENGINE
 // ============================================================================
-// Ushbu faylda:
-// 1. 3D Card Tilt & Parallax (Fizika asosidagi silliq burilish va nur aksi)
-// 2. Interaktiv oltin zarrachalar (Golden Embers Canvas)
-// 3. Karusel slayderi (Create Your Vision matn animatsiyasi)
-// 4. Tablar almashinuvi va formalar validatsiyasi
-// 5. HttpOnly Cookie orqali xavfsiz autentifikatsiya
+// 1. 3D Parallax & Golden Embers Background
+// 2. HttpOnly Cookie & Bcrypt Authentication (Sign In / Sign Up)
+// 3. Gemini 3.6 Flash AI Narx Solishtirish va Do'konlar Tahlili
+// 4. Qidiruv tarixi va interaktiv chip-tugmalar
 
 document.addEventListener('DOMContentLoaded', () => {
-    // DOM Elementlari
-    const perspectiveContainer = document.getElementById('perspectiveContainer');
+    // Auth DOM Elementlari
     const authCard = document.getElementById('authCard');
-    const cardGlare = document.getElementById('cardGlare');
+    const aiWorkspace = document.getElementById('aiWorkspace');
     const tabSignUp = document.getElementById('tabSignUp');
     const tabLogIn = document.getElementById('tabLogIn');
     const pillHighlight = document.getElementById('pillHighlight');
@@ -20,69 +17,74 @@ document.addEventListener('DOMContentLoaded', () => {
     const signUpForm = document.getElementById('signUpForm');
     const logInForm = document.getElementById('logInForm');
     const alertBox = document.getElementById('alertBox');
-    const dashboardCard = document.getElementById('dashboardCard');
-
-    // Tugmalar
     const signUpBtn = document.getElementById('signUpBtn');
     const logInBtn = document.getElementById('logInBtn');
     const logoutBtn = document.getElementById('logoutBtn');
-    const btnRefreshApi = document.getElementById('btnRefreshApi');
 
-    // Dashboard elementlari
-    const dashUserName = document.getElementById('dashUserName');
-    const dashUserEmail = document.getElementById('dashUserEmail');
-    const userAvatar = document.getElementById('userAvatar');
-    const apiOutput = document.getElementById('apiOutput');
+    // Workspace DOM Elementlari
+    const navUserName = document.getElementById('navUserName');
+    const navUserAvatar = document.getElementById('navUserAvatar');
+    const priceCompareForm = document.getElementById('priceCompareForm');
+    const productQueryInput = document.getElementById('productQueryInput');
+    const compareSubmitBtn = document.getElementById('compareSubmitBtn');
+    const aiLoadingCard = document.getElementById('aiLoadingCard');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const historyChipsContainer = document.getElementById('historyChipsContainer');
+
+    // Natijalar DOM Elementlari
+    const resCategory = document.getElementById('resCategory');
+    const resProductName = document.getElementById('resProductName');
+    const resOverview = document.getElementById('resOverview');
+    const resBestStore = document.getElementById('resBestStore');
+    const resBestSavings = document.getElementById('resBestSavings');
+    const resBestPriceUZS = document.getElementById('resBestPriceUZS');
+    const resBestPriceUSD = document.getElementById('resBestPriceUSD');
+    const resBestStoreLink = document.getElementById('resBestStoreLink');
+    const resStoresGrid = document.getElementById('resStoresGrid');
+    const resStoresCount = document.getElementById('resStoresCount');
+    const resSpecsGrid = document.getElementById('resSpecsGrid');
+    const resVerdict = document.getElementById('resVerdict');
+    const resWhoBuy = document.getElementById('resWhoBuy');
+    const resWhoWait = document.getElementById('resWhoWait');
 
     // ========================================================================
-    // 1. 3D CARD TILT & MOUSE PARALLAX (Lerp silliqlash bilan)
+    // 1. 3D CARD TILT & MOUSE PARALLAX (Login Karta uchun)
     // ========================================================================
     let currentX = 0, currentY = 0;
     let targetX = 0, targetY = 0;
-    let isHovered = false;
 
-    // Karta ustida sichqoncha harakati
     window.addEventListener('mousemove', (e) => {
-        if (!authCard || window.innerWidth < 860) return;
+        if (!authCard || authCard.style.display === 'none' || window.innerWidth < 860) return;
 
         const rect = authCard.getBoundingClientRect();
         const cardCenterX = rect.left + rect.width / 2;
         const cardCenterY = rect.top + rect.height / 2;
 
-        // Sichqonchaning karta markazidan masofasi (-1 dan 1 gacha)
         const mouseX = (e.clientX - cardCenterX) / (window.innerWidth / 2);
         const mouseY = (e.clientY - cardCenterY) / (window.innerHeight / 2);
 
-        // Karta ustida ekanini aniqlash
         const overCard = (
             e.clientX >= rect.left && e.clientX <= rect.right &&
             e.clientY >= rect.top && e.clientY <= rect.bottom
         );
 
         if (overCard) {
-            isHovered = true;
-            // Maksimal 8 gradusgacha 3D burilish
-            targetX = -mouseY * 8;
-            targetY = mouseX * 8;
-
-            // Specular Glare (nur akslanishi) koordinatalari
+            targetX = -mouseY * 7;
+            targetY = mouseX * 7;
             const glareX = ((e.clientX - rect.left) / rect.width) * 100;
             const glareY = ((e.clientY - rect.top) / rect.height) * 100;
             authCard.style.setProperty('--glare-x', `${glareX}%`);
             authCard.style.setProperty('--glare-y', `${glareY}%`);
         } else {
-            isHovered = false;
             targetX = 0;
             targetY = 0;
         }
     });
 
-    // 60fps silliq fizika interpolatsiyasi (Lerp)
     function animateTilt() {
-        if (window.innerWidth >= 860 && authCard) {
+        if (authCard && authCard.style.display !== 'none' && window.innerWidth >= 860) {
             currentX += (targetX - currentX) * 0.08;
             currentY += (targetY - currentY) * 0.08;
-
             authCard.style.transform = `rotateX(${currentX.toFixed(2)}deg) rotateY(${currentY.toFixed(2)}deg)`;
         }
         requestAnimationFrame(animateTilt);
@@ -90,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     animateTilt();
 
     // ========================================================================
-    // 2. INTERAKTIV OLTIN ZARRACHALAR KANVASI (Golden Embers)
+    // 2. INTERAKTIV OLTIN ZARRACHALAR (Particles Canvas)
     // ========================================================================
     const canvas = document.getElementById('particlesCanvas');
     if (canvas) {
@@ -103,36 +105,27 @@ document.addEventListener('DOMContentLoaded', () => {
             height = canvas.height = window.innerHeight;
         });
 
-        // 55 ta oltin zarracha yaratish
         const particles = [];
-        const particleCount = 55;
+        const particleCount = 50;
 
         class Particle {
-            constructor() {
-                this.reset();
-            }
-
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * width;
-                this.y = height + Math.random() * 50;
+                this.y = height + Math.random() * 40;
                 this.size = Math.random() * 2.2 + 0.8;
                 this.speedY = Math.random() * 0.7 + 0.3;
                 this.speedX = (Math.random() - 0.5) * 0.4;
                 this.opacity = Math.random() * 0.6 + 0.2;
                 this.fadeSpeed = Math.random() * 0.003 + 0.002;
-                this.hue = 38 + Math.random() * 10; // Oltin-amber rang (HSL)
+                this.hue = 38 + Math.random() * 10;
             }
-
             update() {
                 this.y -= this.speedY;
                 this.x += this.speedX;
                 this.opacity -= this.fadeSpeed;
-
-                if (this.opacity <= 0 || this.y < -10) {
-                    this.reset();
-                }
+                if (this.opacity <= 0 || this.y < -10) this.reset();
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -145,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let i = 0; i < particleCount; i++) {
             const p = new Particle();
-            p.y = Math.random() * height; // Boshida ekranga yoyish
+            p.y = Math.random() * height;
             particles.push(p);
         }
 
@@ -161,88 +154,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================================================
-    // 3. KARUSEL MATNLARI (Create Your Vision Slides)
+    // 3. TABLAR VA PAROL KO'RSATISH
     // ========================================================================
-    const carouselData = [
-        {
-            title: "Create Your Vision",
-            subtitle: "AI-assisted workspace to craft and elevate your ideas."
-        },
-        {
-            title: "Unleash Imagination",
-            subtitle: "Generate breathtaking visuals and hyperrealistic concepts in seconds."
-        },
-        {
-            title: "Studio-Grade Power",
-            subtitle: "Engineered for designers, artists, and visionaries worldwide."
-        }
-    ];
-
-    let currentSlide = 0;
-    const artTitle = document.getElementById('artTitle');
-    const artSubtitle = document.getElementById('artSubtitle');
-    const textWrapper = document.querySelector('.carousel-text-wrapper');
-    const indicators = document.querySelectorAll('.indicator');
-
-    function setSlide(index) {
-        if (index === currentSlide) return;
-        currentSlide = index;
-
-        indicators.forEach((ind, i) => {
-            ind.classList.toggle('active', i === currentSlide);
+    if (tabSignUp && tabLogIn) {
+        tabSignUp.addEventListener('click', () => {
+            tabSignUp.classList.add('active');
+            tabLogIn.classList.remove('active');
+            if (pillHighlight) pillHighlight.style.transform = 'translateX(0%)';
+            if (formTitle) formTitle.textContent = 'Create An Account';
+            signUpForm.classList.add('active');
+            logInForm.classList.remove('active');
+            hideAlert();
         });
 
-        if (textWrapper) {
-            textWrapper.classList.add('fade-out');
-            setTimeout(() => {
-                artTitle.textContent = carouselData[currentSlide].title;
-                artSubtitle.textContent = carouselData[currentSlide].subtitle;
-                textWrapper.classList.remove('fade-out');
-            }, 250);
-        }
+        tabLogIn.addEventListener('click', () => {
+            tabLogIn.classList.add('active');
+            tabSignUp.classList.remove('active');
+            if (pillHighlight) pillHighlight.style.transform = 'translateX(100%)';
+            if (formTitle) formTitle.textContent = 'Welcome Back';
+            logInForm.classList.add('active');
+            signUpForm.classList.remove('active');
+            hideAlert();
+        });
     }
 
-    indicators.forEach((ind) => {
-        ind.addEventListener('click', () => {
-            const slideIdx = parseInt(ind.getAttribute('data-slide'), 10);
-            setSlide(slideIdx);
-        });
-    });
-
-    // Har 5.5 soniyada avtomatik keyingi slaydga o'tish
-    setInterval(() => {
-        const next = (currentSlide + 1) % carouselData.length;
-        setSlide(next);
-    }, 5500);
-
-    // ========================================================================
-    // 4. TAB ALMASHINUVI (Sign Up <-> Log In)
-    // ========================================================================
-    tabSignUp.addEventListener('click', () => {
-        tabSignUp.classList.add('active');
-        tabLogIn.classList.remove('active');
-        pillHighlight.style.transform = 'translateX(0%)';
-        formTitle.textContent = 'Create An Account';
-
-        signUpForm.classList.add('active');
-        logInForm.classList.remove('active');
-        hideAlert();
-    });
-
-    tabLogIn.addEventListener('click', () => {
-        tabLogIn.classList.add('active');
-        tabSignUp.classList.remove('active');
-        pillHighlight.style.transform = 'translateX(100%)';
-        formTitle.textContent = 'Welcome Back';
-
-        logInForm.classList.add('active');
-        signUpForm.classList.remove('active');
-        hideAlert();
-    });
-
-    // ========================================================================
-    // 5. PAROLNI KO'RSATISH / YASHIRISH (Eye Toggle)
-    // ========================================================================
     document.querySelectorAll('.eye-toggle').forEach(btn => {
         btn.addEventListener('click', () => {
             const targetId = btn.getAttribute('data-target');
@@ -257,38 +192,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ========================================================================
-    // 6. BILDIRISHNOMALAR (Alert Helper)
-    // ========================================================================
     function showAlert(type, message) {
+        if (!alertBox) return;
         alertBox.className = `alert-box ${type}`;
         alertBox.textContent = message;
         alertBox.style.display = 'block';
     }
 
     function hideAlert() {
+        if (!alertBox) return;
         alertBox.style.display = 'none';
         alertBox.textContent = '';
     }
 
-    function setLoading(btn, isLoading, defaultText) {
-        const text = btn.querySelector('.btn-text');
-        const spinner = btn.querySelector('.btn-spinner');
-        if (isLoading) {
-            btn.disabled = true;
-            text.textContent = 'Processing...';
-            spinner.style.display = 'block';
-        } else {
-            btn.disabled = false;
-            text.textContent = defaultText;
-            spinner.style.display = 'none';
-        }
-    }
-
     // ========================================================================
-    // 7. SIGN UP SO'ROVI
+    // 4. AUTENTIFIKATSIYA SO'ROVLARI (Sign Up & Sign In)
     // ========================================================================
-    signUpForm.addEventListener('submit', async (e) => {
+    signUpForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
         hideAlert();
 
@@ -299,53 +219,45 @@ document.addEventListener('DOMContentLoaded', () => {
         const confirmPassword = document.getElementById('signUpConfirmPassword').value;
 
         if (password !== confirmPassword) {
-            showAlert('error', 'Passwords do not match! Please verify.');
+            showAlert('error', 'Parollar bir-biriga mos kelmadi!');
             return;
         }
 
         if (password.length < 6) {
-            showAlert('error', 'Password must be at least 6 characters long.');
+            showAlert('error', 'Parol kamida 6 ta belgidan iborat bo\'lishi kerak.');
             return;
         }
 
         const fullName = `${firstName} ${lastName}`.trim();
-        setLoading(signUpBtn, true, 'Create an Account');
 
         try {
             const res = await fetch('/api/auth/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                credentials: 'include', // HttpOnly kuki almashinuvi uchun
+                credentials: 'include', // HttpOnly Cookie
                 body: JSON.stringify({ name: fullName, email, password })
             });
 
             const data = await res.json();
 
             if (res.ok && data.success) {
-                showAlert('success', 'Account created successfully!');
+                showAlert('success', 'Muvaffaqiyatli ro\'yxatdan o\'tdingiz!');
                 signUpForm.reset();
-                setTimeout(() => showDashboard(data.user), 600);
+                setTimeout(() => showAiWorkspace(data.user), 500);
             } else {
-                showAlert('error', data.message || 'Error creating account');
+                showAlert('error', data.message || 'Xatolik yuz berdi');
             }
         } catch (err) {
-            showAlert('error', 'Connection error. Please try again.');
-        } finally {
-            setLoading(signUpBtn, false, 'Create an Account');
+            showAlert('error', 'Server bilan bog\'lanishda xatolik.');
         }
     });
 
-    // ========================================================================
-    // 8. LOG IN SO'ROVI
-    // ========================================================================
-    logInForm.addEventListener('submit', async (e) => {
+    logInForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
         hideAlert();
 
         const email = document.getElementById('logInEmail').value.trim();
         const password = document.getElementById('logInPassword').value;
-
-        setLoading(logInBtn, true, 'Log In');
 
         try {
             const res = await fetch('/api/auth/signin', {
@@ -358,72 +270,220 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await res.json();
 
             if (res.ok && data.success) {
-                showAlert('success', 'Welcome back!');
+                showAlert('success', 'Xush kelibsiz!');
                 logInForm.reset();
-                setTimeout(() => showDashboard(data.user), 600);
+                setTimeout(() => showAiWorkspace(data.user), 500);
             } else {
-                showAlert('error', data.message || 'Invalid email or password');
+                showAlert('error', data.message || 'Email yoki parol noto\'g\'ri');
             }
         } catch (err) {
-            showAlert('error', 'Connection error. Please try again.');
-        } finally {
-            setLoading(logInBtn, false, 'Log In');
+            showAlert('error', 'Server bilan bog\'lanishda xatolik.');
         }
     });
 
     // ========================================================================
-    // 9. DASHBOARD KO'RINISHI VA VERIFIKATSIYA
+    // 5. WORKSPACENI KO'RSATISH VA CHIQISH (Show Workspace & Logout)
     // ========================================================================
-    function showDashboard(user) {
-        authCard.style.display = 'none';
-        dashboardCard.style.display = 'block';
+    function showAiWorkspace(user) {
+        if (authCard) authCard.style.display = 'none';
+        if (aiWorkspace) aiWorkspace.style.display = 'block';
 
-        dashUserName.textContent = user.name || 'User';
-        dashUserEmail.textContent = user.email || '';
-        userAvatar.textContent = (user.name ? user.name[0] : 'U').toUpperCase();
+        if (navUserName) navUserName.textContent = user.name || 'User';
+        if (navUserAvatar) navUserAvatar.textContent = (user.name ? user.name[0] : 'U').toUpperCase();
 
-        verifyProtectedApi();
+        // O'tgan qidiruvlar tarixini yuklash
+        loadSearchHistory();
     }
 
-    async function verifyProtectedApi() {
-        apiOutput.textContent = 'Verifying HttpOnly credentials...';
-        try {
-            const res = await fetch('/api/auth/me', {
-                method: 'GET',
-                credentials: 'include'
-            });
-            const data = await res.json();
-            apiOutput.textContent = JSON.stringify(data, null, 2);
-        } catch (err) {
-            apiOutput.textContent = 'API call failed: ' + err.message;
-        }
-    }
-
-    if (btnRefreshApi) {
-        btnRefreshApi.addEventListener('click', verifyProtectedApi);
-    }
-
-    // ========================================================================
-    // 10. LOGOUT
-    // ========================================================================
-    logoutBtn.addEventListener('click', async () => {
+    logoutBtn?.addEventListener('click', async () => {
         try {
             await fetch('/api/auth/signout', {
                 method: 'POST',
                 credentials: 'include'
             });
         } catch (e) {
-            console.error('Logout error:', e);
+            console.error('Logout xatoligi:', e);
         }
-        dashboardCard.style.display = 'none';
-        authCard.style.display = 'grid';
-        showAlert('success', 'You have been signed out successfully.');
+        if (aiWorkspace) aiWorkspace.style.display = 'none';
+        if (authCard) authCard.style.display = 'grid';
+        showAlert('success', 'Tizimdan muvaffaqiyatli chiqdingiz.');
     });
 
     // ========================================================================
-    // 11. OLDINGI SESSIYANI TEKSHIRISH
+    // 6. AI NARX SOLISHTIRISH FUNKSIYASI (Gemini 3.6 Flash Engine)
     // ========================================================================
-    async function checkSession() {
+    async function executePriceComparison(query) {
+        if (!query || query.trim().length === 0) return;
+
+        // UI holatini o'zgartirish
+        resultsContainer.style.display = 'none';
+        aiLoadingCard.style.display = 'block';
+        aiLoadingCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Tugmani kutish holatiga o'tkazish
+        compareSubmitBtn.disabled = true;
+        const btnContent = compareSubmitBtn.querySelector('.btn-content');
+        const btnSpinner = compareSubmitBtn.querySelector('.btn-spinner');
+        if (btnContent) btnContent.style.display = 'none';
+        if (btnSpinner) btnSpinner.style.display = 'block';
+
+        try {
+            const res = await fetch('/api/compare', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include', // HttpOnly Cookie sessiyasi
+                body: JSON.stringify({ query: query.trim() })
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.success && data.data) {
+                renderComparisonResults(data.data);
+                loadSearchHistory(); // Yangi qidiruv tarixga qo'shildi
+            } else {
+                alert('Xatolik: ' + (data.message || 'AI tahlilida xatolik yuz berdi'));
+            }
+        } catch (err) {
+            console.error('Compare xatoligi:', err);
+            alert('Server bilan bog\'lanishda xatolik yuz berdi: ' + err.message);
+        } finally {
+            aiLoadingCard.style.display = 'none';
+            compareSubmitBtn.disabled = false;
+            if (btnContent) btnContent.style.display = 'flex';
+            if (btnSpinner) btnSpinner.style.display = 'none';
+        }
+    }
+
+    // Form orqali qidiruv
+    priceCompareForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const q = productQueryInput.value.trim();
+        executePriceComparison(q);
+    });
+
+    // Tezkor taklif chip-tugmalari (Quick Chips)
+    document.querySelectorAll('.prompt-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const q = chip.getAttribute('data-query');
+            productQueryInput.value = q;
+            executePriceComparison(q);
+        });
+    });
+
+    // ========================================================================
+    // 7. NATIJALARNI RENDER QILISH (Render Comparison Data)
+    // ========================================================================
+    function renderComparisonResults(data) {
+        // 1. Asosiy ma'lumotlar
+        resCategory.textContent = data.category || 'Elektronika';
+        resProductName.textContent = data.productName || 'Mahsulot';
+        resOverview.textContent = data.overview || '';
+
+        // 2. Eng arzon variant (Best Deal)
+        if (data.bestDeal) {
+            resBestStore.textContent = data.bestDeal.storeName || 'Do\'kon';
+            resBestSavings.textContent = data.bestDeal.savings || 'Eng arzon narx';
+            resBestPriceUZS.textContent = data.bestDeal.priceUZS || '';
+            resBestPriceUSD.textContent = data.bestDeal.priceUSD || '';
+            resBestStoreLink.href = data.bestDeal.url || '#';
+        }
+
+        // 3. Do'konlar ro'yxati
+        resStoresGrid.innerHTML = '';
+        if (data.stores && Array.isArray(data.stores)) {
+            resStoresCount.textContent = `${data.stores.length} ta ishonchli do'kon tahlil qilindi`;
+
+            data.stores.forEach(store => {
+                const storeCard = document.createElement('div');
+                storeCard.className = `store-card ${store.isBest ? 'highlight-card' : ''}`;
+                storeCard.innerHTML = `
+                    <div>
+                        <div class="store-card-head">
+                            <h4 class="store-card-name">${store.name}</h4>
+                            <span class="store-badge">${store.badge || 'Mavjud'}</span>
+                        </div>
+                        <div class="store-card-price">
+                            <div class="card-price-uzs">${store.priceUZS}</div>
+                            <div class="card-price-usd">${store.priceUSD}</div>
+                        </div>
+                        <div class="store-details-list">
+                            <div>🚚 ${store.delivery || 'Yetkazib berish mavjud'}</div>
+                            <div>🛡️ ${store.warranty || 'Kafolat mavjud'}</div>
+                            <div>⭐ Reyting: ${store.rating || 4.8} / 5</div>
+                        </div>
+                    </div>
+                    <a href="${store.url || '#'}" target="_blank" class="store-link-btn">
+                        Do'konda ko'rish ↗
+                    </a>
+                `;
+                resStoresGrid.appendChild(storeCard);
+            });
+        }
+
+        // 4. Texnik xususiyatlar (Specs)
+        resSpecsGrid.innerHTML = '';
+        if (data.specsComparison && Array.isArray(data.specsComparison)) {
+            data.specsComparison.forEach(spec => {
+                const specItem = document.createElement('div');
+                specItem.className = 'spec-item';
+                specItem.innerHTML = `
+                    <div class="spec-feature">${spec.feature}</div>
+                    <div class="spec-value">${spec.value}</div>
+                `;
+                resSpecsGrid.appendChild(specItem);
+            });
+        }
+
+        // 5. AI Ekspert Tavsiyasi
+        if (data.recommendation) {
+            resVerdict.textContent = data.recommendation.verdict || '';
+            resWhoBuy.textContent = data.recommendation.whoShouldBuy || '';
+            resWhoWait.textContent = data.recommendation.whoShouldWait || '';
+        }
+
+        // Natijalar blokini ko'rsatish
+        resultsContainer.style.display = 'flex';
+        resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ========================================================================
+    // 8. QIDIRUV TARIXINI YUKLASH VA BOSHQARISH
+    // ========================================================================
+    async function loadSearchHistory() {
+        try {
+            const res = await fetch('/api/compare/history', {
+                method: 'GET',
+                credentials: 'include'
+            });
+            const data = await res.json();
+
+            if (res.ok && data.success && data.history && data.history.length > 0) {
+                historyChipsContainer.innerHTML = '';
+                data.history.forEach(item => {
+                    const chip = document.createElement('button');
+                    chip.type = 'button';
+                    chip.className = 'history-chip';
+                    chip.textContent = `🔍 ${item.query}`;
+                    chip.addEventListener('click', () => {
+                        productQueryInput.value = item.query;
+                        if (item.data) {
+                            renderComparisonResults(item.data);
+                        } else {
+                            executePriceComparison(item.query);
+                        }
+                    });
+                    historyChipsContainer.appendChild(chip);
+                });
+            }
+        } catch (e) {
+            console.error('Tarixni yuklashda xatolik:', e);
+        }
+    }
+
+    // ========================================================================
+    // 9. MAVJUD SESSIYANI TEKSHIRISH (Sahifa yangilanganda)
+    // ========================================================================
+    async function checkExistingSession() {
         try {
             const res = await fetch('/api/auth/me', {
                 method: 'GET',
@@ -432,13 +492,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (res.ok) {
                 const data = await res.json();
                 if (data.success && data.user) {
-                    showDashboard(data.user);
+                    showAiWorkspace(data.user);
                 }
             }
         } catch (e) {
-            // Sessiya yo'q bo'lsa
+            // Sessiya yo'q
         }
     }
 
-    checkSession();
+    checkExistingSession();
 });

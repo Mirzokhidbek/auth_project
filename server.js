@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+const comparisonRoutes = require('./routes/comparisonRoutes');
 
 // 1. Express ilovasini yaratamiz
 const app = express();
@@ -27,8 +28,9 @@ app.use(cookieParser());
 // 4. Frontend statik fayllarini ('public' papkasi) taqdim etish:
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 5. Autentifikatsiya API yo'nalishlarini ulash:
+// 5. API yo'nalishlarini ulash:
 app.use('/api/auth', authRoutes);
+app.use('/api/compare', comparisonRoutes);
 
 // Barcha boshqa yo'nalishlar uchun frontend bosh sahifasini beramiz (SPA fallback):
 app.get('*', (req, res) => {

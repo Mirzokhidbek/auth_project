@@ -1,7 +1,6 @@
 /* ==========================================================================
-   NEUROFOX — ADVANCED 3D PARALLAX & MICRO-ANIMATION STYLES
-   Features: 3D Perspective Tilt, Specular Glare Sheen, Floating Golden Embers,
-             and Multi-layer Depth Parallax
+   NEUROFOX — AI PRICE COMPARISON PLATFORM & LUXURY UI STYLES
+   Features: 3D Parallax, Specular Glare, Golden Embers, and AI Workspace
    ========================================================================== */
 
 :root {
@@ -18,6 +17,8 @@
     --accent-gold: #fbb01b;
     --accent-gradient: linear-gradient(180deg, #fbb01b 0%, #f59e0b 100%);
     --accent-glow: rgba(245, 158, 11, 0.4);
+    --success: #10b981;
+    --success-bg: rgba(16, 185, 129, 0.12);
     --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -36,10 +37,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 24px 16px;
     color: var(--text-primary);
     overflow-x: hidden;
-    perspective: 1400px; /* 3D fazo teranligi */
+    perspective: 1400px;
 }
 
 /* --------------------------------------------------------------------------
@@ -56,7 +57,6 @@ body {
     opacity: 0.85;
 }
 
-/* Ambient nurli sharlar (Glow Orbs) */
 .ambient-sphere {
     position: fixed;
     border-radius: 50%;
@@ -91,25 +91,26 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   ASOSIY 3D PERSPECTIVE KONTEYNER
+   ASOSIY PERSPECTIVE KONTEYNER
    -------------------------------------------------------------------------- */
 .page-container {
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 980px;
+    max-width: 1080px;
     display: flex;
     justify-content: center;
     align-items: center;
     perspective: 1400px;
 }
 
-/* --------------------------------------------------------------------------
-   ASOSIY SPLIT KARTA (3D Transform-Style: Preserve-3d)
-   -------------------------------------------------------------------------- */
+/* ==========================================================================
+   1. AUTENTIFIKATSIYA SPLIT KARTASI
+   ========================================================================== */
 .auth-split-card {
     position: relative;
     width: 100%;
+    max-width: 980px;
     background: var(--card-bg);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
@@ -131,7 +132,6 @@ body {
                 0 0 40px -10px rgba(245, 158, 11, 0.15);
 }
 
-/* 3D Dinamik Nur Akslanishi (Specular Glare Sheen) */
 .card-glare {
     position: absolute;
     top: 0;
@@ -155,9 +155,6 @@ body {
     opacity: 1;
 }
 
-/* --------------------------------------------------------------------------
-   CHAP USTUN: Badiiy Rasm va 3D Parallax Qatlamlari
-   -------------------------------------------------------------------------- */
 .art-column {
     position: relative;
     border-radius: 26px;
@@ -169,7 +166,6 @@ body {
     justify-content: space-between;
     transform-style: preserve-3d;
     transform: translateZ(20px);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .art-background-image {
@@ -180,7 +176,7 @@ body {
     height: 100%;
     object-fit: cover;
     z-index: 1;
-    transform: scale(1.05) translateZ(0);
+    transform: scale(1.05);
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -197,7 +193,6 @@ body {
     pointer-events: none;
 }
 
-/* Brend logosi (3D Yuqori qatlam) */
 .brand-badge {
     position: relative;
     z-index: 3;
@@ -207,19 +202,11 @@ body {
     margin: 24px 0 0 24px;
     background: rgba(13, 14, 20, 0.55);
     backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
     padding: 7px 16px 7px 12px;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     width: fit-content;
     transform: translateZ(45px);
-    transition: var(--transition-smooth);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-}
-
-.brand-badge:hover {
-    transform: translateZ(55px) scale(1.04);
-    border-color: rgba(245, 158, 11, 0.4);
 }
 
 .brand-fox-icon {
@@ -237,18 +224,15 @@ body {
 .brand-name {
     font-size: 15px;
     font-weight: 700;
-    letter-spacing: -0.2px;
     color: #ffffff;
 }
 
-/* Pastki qorong'i gradient pardasi (3D Qatlam) */
 .art-bottom-scrim {
     position: relative;
     z-index: 3;
     padding: 34px 28px;
     background: linear-gradient(to top, rgba(7, 8, 12, 0.96) 0%, rgba(7, 8, 12, 0.72) 65%, transparent 100%);
     transform: translateZ(35px);
-    transform-style: preserve-3d;
 }
 
 .carousel-indicators {
@@ -265,10 +249,6 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: var(--transition-smooth);
-}
-
-.indicator:hover {
-    background: rgba(255, 255, 255, 0.55);
 }
 
 .indicator.active {
@@ -293,7 +273,6 @@ body {
     letter-spacing: -0.5px;
     margin-bottom: 8px;
     line-height: 1.2;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
 
 .art-subtitle {
@@ -301,12 +280,8 @@ body {
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.55;
     max-width: 320px;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
 }
 
-/* --------------------------------------------------------------------------
-   O'NG USTUN: Forma va 3D Interaktiv Elementlar
-   -------------------------------------------------------------------------- */
 .form-column {
     display: flex;
     flex-direction: column;
@@ -315,7 +290,6 @@ body {
     transform-style: preserve-3d;
 }
 
-/* Pill Switcher [ Sign Up | Log In ] */
 .pill-switcher-wrapper {
     display: flex;
     justify-content: center;
@@ -330,7 +304,6 @@ body {
     border-radius: 9999px;
     padding: 4px;
     border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .switcher-btn {
@@ -375,9 +348,6 @@ body {
     transform: translateZ(25px);
 }
 
-/* --------------------------------------------------------------------------
-   3D INTERAKTIV INPUTLAR
-   -------------------------------------------------------------------------- */
 .auth-form {
     display: none;
     flex-direction: column;
@@ -406,7 +376,7 @@ body {
     display: flex;
     align-items: center;
     transform: translateZ(15px);
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .input-field:focus-within {
@@ -443,7 +413,6 @@ body {
     left: 16px;
     color: var(--text-placeholder);
     pointer-events: none;
-    transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .input-field input:focus {
@@ -456,7 +425,6 @@ body {
 .input-field input:focus ~ .field-icon,
 .input-field:focus-within .field-icon {
     color: var(--accent-amber);
-    transform: scale(1.1);
 }
 
 .eye-toggle {
@@ -468,19 +436,13 @@ body {
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: color 0.2s ease, transform 0.2s ease;
     padding: 4px;
 }
 
 .eye-toggle:hover {
     color: var(--accent-amber);
-    transform: scale(1.15);
 }
 
-/* --------------------------------------------------------------------------
-   3D HARAKAT TUGMASI (Interactive 3D Button + Shimmer Light)
-   -------------------------------------------------------------------------- */
 .submit-btn {
     position: relative;
     margin-top: 6px;
@@ -505,15 +467,9 @@ body {
 
 .submit-btn:hover {
     transform: translateZ(44px) translateY(-2px);
-    box-shadow: 0 14px 32px -2px rgba(245, 158, 11, 0.55),
-                0 0 20px rgba(251, 176, 27, 0.4);
+    box-shadow: 0 14px 32px -2px rgba(245, 158, 11, 0.55);
 }
 
-.submit-btn:active {
-    transform: translateZ(24px) translateY(0);
-}
-
-/* Shimmer yorug'lik chizig'i */
 .btn-shimmer {
     position: absolute;
     top: 0;
@@ -550,7 +506,6 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* Pastki xavfsizlik eslatmasi */
 .secure-footer-note {
     margin-top: 22px;
     display: flex;
@@ -562,13 +517,6 @@ body {
     transform: translateZ(15px);
 }
 
-.secure-footer-note b {
-    color: #949ab0;
-}
-
-/* --------------------------------------------------------------------------
-   BILDIRISHNOMA (Alert Box)
-   -------------------------------------------------------------------------- */
 .alert-box {
     padding: 10px 14px;
     border-radius: 10px;
@@ -596,185 +544,782 @@ body {
     color: #6ee7b7;
 }
 
-/* --------------------------------------------------------------------------
-   DASHBOARD KARTASI
-   -------------------------------------------------------------------------- */
-.dashboard-card {
+/* ==========================================================================
+   2. AI PRICE COMPARISON WORKSPACE (Asosiy Tizim)
+   ========================================================================== */
+.ai-workspace {
     width: 100%;
-    max-width: 580px;
     background: var(--card-bg);
+    backdrop-filter: blur(30px);
     border: 1px solid var(--card-border);
-    border-radius: 28px;
-    padding: 36px 32px;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
-    transform-style: preserve-3d;
-    animation: fadeInScale 0.4s ease-out;
+    border-radius: 32px;
+    padding: 32px 36px;
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.9);
+    animation: workspaceAppear 0.5s ease-out;
 }
 
-@keyframes fadeInScale {
-    from { opacity: 0; transform: scale(0.98); }
-    to { opacity: 1; transform: scale(1); }
+@keyframes workspaceAppear {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.dash-top {
+/* Yuqori Navigatsiya Paneli */
+.workspace-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 20px;
+    padding-bottom: 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    margin-bottom: 20px;
+    margin-bottom: 32px;
 }
 
-.user-info {
+.nav-brand {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
 }
 
-.user-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
+.brand-fox {
+    font-size: 24px;
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+}
+
+.brand-text {
+    font-size: 18px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+}
+
+.brand-text span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-amber);
+    margin-left: 4px;
+}
+
+.engine-badge {
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    color: #fbbf24;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.nav-user-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #171922;
+    padding: 5px 14px 5px 6px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.user-mini-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     background: var(--accent-gradient);
     color: #07080b;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    font-weight: 800;
-    box-shadow: 0 4px 14px var(--accent-glow);
-}
-
-.user-info h3 {
-    font-size: 17px;
-    font-weight: 700;
-}
-
-.user-info p {
     font-size: 13px;
-    color: var(--text-secondary);
+    font-weight: 800;
 }
 
-.active-badge {
-    font-size: 11.5px;
-    font-weight: 700;
-    color: #34d399;
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    padding: 5px 12px;
-    border-radius: 9999px;
+.user-chip-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e2e8f0;
 }
 
-.security-pills-row {
+.signout-btn {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 20px;
-}
-
-.sec-item {
-    background: #171922;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 12.5px;
-    color: var(--text-secondary);
-    display: flex;
-    justify-content: space-between;
-}
-
-.sec-item b {
-    color: #f3f4f6;
-}
-
-.api-inspect-box {
-    background: #06070a;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 20px;
-}
-
-.api-inspect-header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
-    font-size: 11.5px;
-    color: var(--text-secondary);
-}
-
-.refresh-api-btn {
-    background: #1e2029;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.api-inspect-box pre {
-    font-family: monospace;
-    font-size: 11px;
-    color: #38bdf8;
-    max-height: 120px;
-    overflow-y: auto;
-    white-space: pre-wrap;
-}
-
-.logout-btn {
-    width: 100%;
-    height: 44px;
+    gap: 6px;
     background: rgba(239, 68, 68, 0.1);
     border: 1px solid rgba(239, 68, 68, 0.25);
-    border-radius: 12px;
     color: #f87171;
-    font-weight: 700;
-    font-size: 13.5px;
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 12.5px;
+    font-weight: 600;
     cursor: pointer;
     transition: var(--transition-fast);
 }
 
-.logout-btn:hover {
+.signout-btn:hover {
     background: rgba(239, 68, 68, 0.2);
     border-color: rgba(239, 68, 68, 0.4);
 }
 
 /* --------------------------------------------------------------------------
-   RESPONSIVE (Mobil moslashuvi)
+   HERO SEARCH SECTION (Qidiruv maydoni)
+   -------------------------------------------------------------------------- */
+.search-hero-section {
+    text-align: center;
+    max-width: 740px;
+    margin: 0 auto 36px auto;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    color: #fbbf24;
+    padding: 5px 14px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.hero-heading {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    line-height: 1.25;
+    margin-bottom: 12px;
+}
+
+.hero-heading span {
+    background: linear-gradient(135deg, #fbb01b, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtext {
+    font-size: 14.5px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.ai-search-form {
+    width: 100%;
+}
+
+.search-input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #141620;
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 6px 8px 6px 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: var(--transition-smooth);
+}
+
+.search-input-box:focus-within {
+    border-color: var(--accent-amber);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2),
+                0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+.search-icon {
+    font-size: 18px;
+    margin-right: 12px;
+    opacity: 0.7;
+}
+
+.search-input-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 15px;
+    outline: none;
+    padding: 8px 0;
+}
+
+.search-input-box input::placeholder {
+    color: #64748b;
+}
+
+.ai-submit-btn {
+    position: relative;
+    background: var(--accent-gradient);
+    border: none;
+    border-radius: 13px;
+    padding: 12px 24px;
+    color: #07080b;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 6px 18px rgba(245, 158, 11, 0.35);
+    transition: var(--transition-fast);
+}
+
+.ai-submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.5);
+}
+
+.btn-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.quick-chips {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.chips-label {
+    font-size: 12px;
+    color: var(--text-placeholder);
+    font-weight: 500;
+}
+
+.prompt-chip {
+    background: #171a24;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    padding: 6px 13px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.prompt-chip:hover {
+    background: #202432;
+    border-color: rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+    transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   AI THINKING / LOADING STATE
+   -------------------------------------------------------------------------- */
+.ai-loading-card {
+    text-align: center;
+    background: #12141c;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: 20px;
+    padding: 36px 24px;
+    margin-bottom: 32px;
+    animation: fadeInScale 0.3s ease-out;
+}
+
+.ai-radar-pulse {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    margin: 0 auto 16px auto;
+    box-shadow: 0 0 25px var(--accent-amber);
+    animation: pulseRing 1.5s infinite;
+}
+
+@keyframes pulseRing {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 35px var(--accent-amber); }
+    100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.ai-loading-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #ffffff;
+}
+
+.loading-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.step-item {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    background: #191c27;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.step-item.active {
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   RESULTS SECTION (Natijalar)
+   -------------------------------------------------------------------------- */
+.results-container {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    animation: fadeInScale 0.4s ease-out;
+}
+
+/* Mahsulot sarlavha kartasi */
+.product-header-card {
+    background: #141722;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 24px 28px;
+}
+
+.product-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.product-category {
+    background: #1e2230;
+    color: var(--accent-amber);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.verified-tag {
+    color: #34d399;
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.product-main-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 8px;
+    letter-spacing: -0.4px;
+}
+
+.product-overview-text {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.6;
+}
+
+/* BEST DEAL CARD (Eng Arzon Variant) */
+.best-deal-card {
+    position: relative;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.14) 0%, rgba(26, 28, 38, 0.95) 100%);
+    border: 2px solid rgba(245, 158, 11, 0.45);
+    border-radius: 24px;
+    padding: 28px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px -10px rgba(245, 158, 11, 0.25);
+}
+
+.best-deal-glow {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.best-deal-badge {
+    display: inline-block;
+    background: var(--accent-gradient);
+    color: #07080b;
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 4px 14px;
+    border-radius: 9999px;
+    letter-spacing: 0.4px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.best-deal-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.store-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.best-store-name {
+    font-size: 24px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.savings-tag {
+    display: inline-block;
+    background: var(--success-bg);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+}
+
+.best-price-group {
+    text-align: right;
+}
+
+.price-uzs {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fbbf24;
+    letter-spacing: -0.5px;
+}
+
+.price-usd {
+    font-size: 15px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.visit-store-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    color: #07080b;
+    padding: 12px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 700;
+    transition: var(--transition-fast);
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.2);
+}
+
+.visit-store-btn:hover {
+    transform: translateY(-2px);
+    background: #f1f5f9;
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.3);
+}
+
+/* Sarlavha qatorlari */
+.section-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.section-title-row h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.sub-counter {
+    font-size: 12px;
+    color: var(--text-placeholder);
+}
+
+/* DO'KONLAR GRIDI */
+.stores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
+}
+
+.store-card {
+    background: #141722;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition-smooth);
+}
+
+.store-card:hover {
+    border-color: rgba(245, 158, 11, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.store-card.highlight-card {
+    border-color: rgba(245, 158, 11, 0.4);
+    background: #181b28;
+}
+
+.store-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.store-card-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.store-badge {
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    color: #fbbf24;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.store-card-price {
+    margin-bottom: 14px;
+}
+
+.card-price-uzs {
+    font-size: 19px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.card-price-usd {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.store-details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 11.5px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+}
+
+.store-link-btn {
+    display: block;
+    text-align: center;
+    background: #1f2334;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.store-link-btn:hover {
+    background: var(--accent-gradient);
+    color: #07080b;
+    font-weight: 700;
+    border-color: transparent;
+}
+
+/* XUSUSIYATLAR MATRITSASI (Specs) */
+.specs-table-card {
+    background: #141722;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.spec-item {
+    background: #191c28;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 12px 16px;
+}
+
+.spec-feature {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--accent-amber);
+    margin-bottom: 4px;
+}
+
+.spec-value {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #f1f5f9;
+}
+
+/* AI TAVSIYASI (Recommendation Card) */
+.ai-recommendation-card {
+    background: #141722;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    border-radius: 20px;
+    padding: 24px 28px;
+}
+
+.rec-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.rec-icon {
+    font-size: 20px;
+}
+
+.rec-header h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.rec-verdict {
+    font-size: 14px;
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.rec-breakdown {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.rec-column {
+    padding: 14px 16px;
+    border-radius: 12px;
+}
+
+.rec-column.buy {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.rec-column.buy h4 {
+    font-size: 12.5px;
+    color: #34d399;
+    margin-bottom: 6px;
+}
+
+.rec-column.wait {
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.rec-column.wait h4 {
+    font-size: 12.5px;
+    color: #fbbf24;
+    margin-bottom: 6px;
+}
+
+.rec-column p {
+    font-size: 12.5px;
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+/* O'TGAN QIDIRUVLAR */
+.history-section {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.history-chips-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.history-chip {
+    background: #141722;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    padding: 7px 14px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.history-chip:hover {
+    border-color: var(--accent-amber);
+    color: #fbbf24;
+}
+
+.empty-history-text {
+    font-size: 12px;
+    color: #64748b;
+    font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE (Mobil moslashuv)
    -------------------------------------------------------------------------- */
 @media (max-width: 860px) {
     .auth-split-card {
         grid-template-columns: 1fr;
         max-width: 480px;
-        transform: none !important;
     }
-
     .art-column {
         min-height: 320px;
-        transform: none !important;
     }
-
-    .form-column {
-        padding: 28px 20px;
-        transform: none !important;
+    .ai-workspace {
+        padding: 24px 18px;
     }
-
-    .card-glare {
-        display: none;
+    .hero-heading {
+        font-size: 26px;
     }
-}
-
-@media (max-width: 440px) {
-    body {
+    .search-input-box {
+        flex-direction: column;
         padding: 12px;
+        gap: 10px;
     }
-    .auth-split-card {
-        padding: 10px;
-        border-radius: 24px;
+    .search-input-box input {
+        width: 100%;
     }
-    .names-row {
+    .ai-submit-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .rec-breakdown {
         grid-template-columns: 1fr;
     }
 }
