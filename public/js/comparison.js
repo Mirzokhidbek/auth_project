@@ -25,11 +25,19 @@ export class ComparisonManager {
         this.resBestPriceUSD = document.getElementById('resBestPriceUSD');
         this.resBestStoreLink = document.getElementById('resBestStoreLink');
         this.resStoresGrid = document.getElementById('resStoresGrid');
-        this.resStoresCount = document.getElementById('resStoresCount');
         this.resSpecsGrid = document.getElementById('resSpecsGrid');
         this.resVerdict = document.getElementById('resVerdict');
         this.resWhoBuy = document.getElementById('resWhoBuy');
         this.resWhoWait = document.getElementById('resWhoWait');
+
+        // Karrot Market elements
+        this.resKarrotCard = document.getElementById('resKarrotCard');
+        this.resKarrotCondition = document.getElementById('resKarrotCondition');
+        this.resKarrotPriceKRW = document.getElementById('resKarrotPriceKRW');
+        this.resKarrotPriceUSD = document.getElementById('resKarrotPriceUSD');
+        this.resKarrotSavings = document.getElementById('resKarrotSavings');
+        this.resKarrotTip = document.getElementById('resKarrotTip');
+        this.resKarrotLink = document.getElementById('resKarrotLink');
 
         this.lastComparisonData = null;
 
@@ -39,6 +47,7 @@ export class ComparisonManager {
     init() {
         this.bindForm();
         this.bindQuickChips();
+        this.bindLanguageChange();
     }
 
     bindForm() {
@@ -52,10 +61,27 @@ export class ComparisonManager {
     bindQuickChips() {
         document.querySelectorAll('.prompt-chip').forEach(chip => {
             chip.addEventListener('click', () => {
-                const query = chip.getAttribute('data-query');
-                if (this.input) this.input.value = query;
-                this.executeComparison(query);
+                const lang = getLanguage();
+                const query = chip.getAttribute(`data-query-${lang}`) || 
+                              chip.getAttribute('data-query-en') || 
+                              chip.getAttribute('data-query');
+                if (this.input && query) this.input.value = query;
+                if (query) this.executeComparison(query);
             });
+        });
+    }
+
+    bindLanguageChange() {
+        window.addEventListener('languageChanged', (e) => {
+            const newLang = e.detail?.lang || getLanguage();
+
+            // Refresh history text in new language
+            this.loadHistory();
+
+            // Re-render store deal buttons and badges if results are open
+            if (this.lastComparisonData && this.resultsContainer && this.resultsContainer.style.display !== 'none') {
+                this.renderResults(this.lastComparisonData);
+            }
         });
     }
 
@@ -126,6 +152,22 @@ export class ComparisonManager {
             if (this.resBestPriceUZS) this.resBestPriceUZS.textContent = data.bestDeal.priceUZS || '';
             if (this.resBestPriceUSD) this.resBestPriceUSD.textContent = data.bestDeal.priceUSD || '';
             if (this.resBestStoreLink) this.resBestStoreLink.href = data.bestDeal.url || '#';
+        }
+
+        // Karrot Market (당근마켓) Second-Hand Analysis
+        if (data.karrotMarket && this.resKarrotCard) {
+            this.resKarrotCard.style.display = 'block';
+            if (this.resKarrotCondition) this.resKarrotCondition.textContent = data.karrotMarket.condition || 'S-Grade';
+            if (this.resKarrotPriceKRW) this.resKarrotPriceKRW.textContent = data.karrotMarket.averageUsedPriceKRW || '';
+            if (this.resKarrotPriceUSD) this.resKarrotPriceUSD.textContent = data.karrotMarket.averageUsedPriceUSD || '';
+            if (this.resKarrotSavings) this.resKarrotSavings.textContent = data.karrotMarket.savingsVsNew || '';
+            if (this.resKarrotTip) this.resKarrotTip.textContent = data.karrotMarket.karrotTip || '';
+            if (this.resKarrotLink) {
+                const searchQ = encodeURIComponent(data.productName || 'MacBook');
+                this.resKarrotLink.href = `https://www.daangn.com/search/${searchQ}`;
+            }
+        } else if (this.resKarrotCard) {
+            this.resKarrotCard.style.display = 'none';
         }
 
         // Stores Grid

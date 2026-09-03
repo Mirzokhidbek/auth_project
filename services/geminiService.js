@@ -28,10 +28,10 @@ const comparePricesWithGemini = async (userQuery, lang = 'en') => {
 사용자 검색어: "${userQuery}".
 
 임무:
-1. 해당 제품에 대한 한국 내 대표 신뢰 쇼핑몰(쿠팡, 네이버 쇼핑, 11번가, 애플 코리아 등) 및 글로벌(아마존, 애플 스토어)의 최신 실시간 시장 가격을 비교하세요.
-2. 가장 저렴한 최고의 딜(Best Deal)을 식별하고 절약 금액을 계산하세요.
+1. 해당 제품에 대해 오직 대한민국(한국) 내 대표 쇼핑몰(쿠팡, 네이버 쇼핑, 11번가, G마켓, 롯데하이마트, 애플 코리아 공식몰 등)의 실시간 최저가 및 시장 가격만 엄격하게 비교하세요. 타 국가 상점은 제외합니다.
+2. 한국 시장 기준 가장 저렴한 최고의 딜(Best Deal)을 식별하고 원화(KRW / ₩) 기준 절약 금액을 계산하세요.
 3. 주요 상세 스펙(프로세서, RAM, SSD, 디스플레이, 배터리 등)을 체계적으로 정리하세요.
-4. 어떤 사용자 유형에게 어떤 구성이 적합한지 전문적이고 명확한 추천 의견을 제공하세요.
+4. 한국 소비자 환경(배송, A/S 보증, 결제 혜택)에 맞춘 전문적인 추천 의견을 제공하세요.
 
 엄격한 요구사항: 반드시 아래 JSON 형식으로만 응답하세요. 다른 설명이나 마크다운 텍스트 없이 유효한 JSON만 반환해야 합니다:
 {
@@ -45,6 +45,14 @@ const comparePricesWithGemini = async (userQuery, lang = 'en') => {
     "savings": "타 쇼핑몰 대비 약 180,000원 절약",
     "url": "https://coupang.com"
   },
+  "karrotMarket": {
+    "averageUsedPriceKRW": "₩1,750,000 ~ ₩1,850,000",
+    "averageUsedPriceUSD": "$1,250 ~ $1,320",
+    "condition": "S-급 / 미개봉 단순개봉 (Like New / Unopened)",
+    "savingsVsNew": "새 제품(쿠팡) 대비 약 ₩300,000 ~ ₩400,000 절약",
+    "karrotTip": "당근 직거래 시 배터리 사이클 수, 보증 기간(애플케어+ 잔여 여부) 및 외관 스크래치 확인 필수",
+    "url": "https://www.daangn.com"
+  },
   "stores": [
     {
       "name": "판매처 (예: 쿠팡)",
@@ -56,6 +64,17 @@ const comparePricesWithGemini = async (userQuery, lang = 'en') => {
       "delivery": "내일(토) 새벽 도착 보장",
       "warranty": "Apple 공인 정품 및 1년 보증",
       "url": "https://coupang.com"
+    },
+    {
+      "name": "🥕 당근마켓 (중고/미개봉 시세)",
+      "priceUSD": "$1,280",
+      "priceUZS": "₩1,790,000",
+      "badge": "중고 직거래 최저 시세",
+      "isBest": false,
+      "rating": 4.8,
+      "delivery": "동네 이웃 대면 직거래 (수수료 0원)",
+      "warranty": "개인 간 거래 (현장 검수 권장)",
+      "url": "https://www.daangn.com"
     },
     {
       "name": "네이버 쇼핑",
@@ -105,84 +124,103 @@ const comparePricesWithGemini = async (userQuery, lang = 'en') => {
   }
 }
 ` : `
-You are "NeuroFox AI", a professional market analyst and hardware pricing expert.
+You are "NeuroFox AI", an expert hardware market analyst specializing in the South Korean electronics and retail market.
 User query: "${userQuery}".
 
 YOUR TASK:
-1. Compare current realistic market prices for this product across reliable stores (MacBro, Uzum Market, MediaPark, Texnomart, Apple Store, Amazon).
-2. Identify the absolute Best Deal and calculate how much money the user saves.
-3. Compare key technical specifications (Chip/Processor, RAM, Storage, Display, Battery).
-4. Provide a professional, personalized recommendation on who should buy vs who should wait.
+1. Search and compare current realistic market prices for this product STRICTLY across South Korea's leading retailers and e-commerce platforms (Coupang, Naver Shopping, 11Street, Gmarket, Lotte Hi-Mart, Apple Korea Store, Samsung Store). Do NOT include non-Korean local stores.
+2. Identify the absolute Best Deal in South Korea and calculate the exact savings in Korean Won (KRW / ₩).
+3. Compare key technical specifications (Processor, RAM, Storage, Display, Battery).
+4. Provide a professional buyer's recommendation tailored for consumers in South Korea.
 
 STRICT REQUIREMENT: Respond ONLY with valid JSON. Do not include any markdown or text outside of the JSON object:
 {
   "productName": "Exact official product name (e.g., Apple MacBook Pro 14 (M4 Chip, 2024))",
-  "category": "Category (e.g., Laptops / Apple Hardware)",
+  "category": "Category (e.g., Laptops / Korean Electronics Market)",
   "overview": "1-2 sentence executive summary of the product",
   "bestDeal": {
-    "storeName": "Store with the lowest price",
+    "storeName": "Coupang Rocket Delivery",
     "priceUSD": "$1,540",
-    "priceUZS": "19,800,000 UZS",
-    "savings": "Save 1,200,000 UZS compared to average market price",
-    "url": "https://macbro.uz"
+    "priceUZS": "₩2,150,000",
+    "savings": "Save approx. ₩180,000 compared to average retail",
+    "url": "https://coupang.com"
+  },
+  "karrotMarket": {
+    "averageUsedPriceKRW": "₩1,750,000 ~ ₩1,850,000",
+    "averageUsedPriceUSD": "$1,250 ~ $1,320",
+    "condition": "S-Grade / Unopened Packaging",
+    "savingsVsNew": "Save approx. ₩350,000 vs. Brand New retail",
+    "karrotTip": "Inspect battery health cycle count and verify original receipt or AppleCare+ warranty during in-person meetup",
+    "url": "https://www.daangn.com"
   },
   "stores": [
     {
-      "name": "Store name",
+      "name": "Coupang (쿠팡)",
       "priceUSD": "$1,540",
-      "priceUZS": "19,800,000 UZS",
-      "badge": "Best Price Deal",
+      "priceUZS": "₩2,150,000",
+      "badge": "Lowest Price Guaranteed",
       "isBest": true,
       "rating": 4.9,
-      "delivery": "Express delivery within 2 hours",
-      "warranty": "1-Year Official Apple Warranty",
-      "url": "https://macbro.uz"
+      "delivery": "Tomorrow dawn delivery (Rocket Delivery)",
+      "warranty": "Official Apple Korea 1-Year Warranty",
+      "url": "https://coupang.com"
     },
     {
-      "name": "Uzum Market",
-      "priceUSD": "$1,590",
-      "priceUZS": "20,500,000 UZS",
-      "badge": "1-Day Delivery",
+      "name": "🥕 Karrot Market (당근마켓 Used Market)",
+      "priceUSD": "$1,280",
+      "priceUZS": "₩1,790,000",
+      "badge": "Used Market Benchmark",
       "isBest": false,
       "rating": 4.8,
-      "delivery": "Next-day pickup point delivery",
-      "warranty": "1-Year Warranty",
-      "url": "https://uzum.uz"
+      "delivery": "Hyperlocal in-person meetup (0% fee)",
+      "warranty": "Direct buyer inspection",
+      "url": "https://www.daangn.com"
     },
     {
-      "name": "MediaPark",
-      "priceUSD": "$1,620",
-      "priceUZS": "20,900,000 UZS",
-      "badge": "Installment Available",
+      "name": "Naver Shopping (네이버 쇼핑)",
+      "priceUSD": "$1,580",
+      "priceUZS": "₩2,210,000",
+      "badge": "Up to 5% Naver Pay Points",
       "isBest": false,
-      "rating": 4.7,
-      "delivery": "1-3 days courier shipping",
-      "warranty": "1-Year Service Warranty",
-      "url": "https://mediapark.uz"
+      "rating": 4.8,
+      "delivery": "Free 1-2 day nationwide shipping",
+      "warranty": "1-Year Genuine Warranty",
+      "url": "https://shopping.naver.com"
     },
     {
-      "name": "Texnomart",
-      "priceUSD": "$1,640",
-      "priceUZS": "21,100,000 UZS",
-      "badge": "Loyalty Cashback",
+      "name": "11Street (11번가)",
+      "priceUSD": "$1,610",
+      "priceUZS": "₩2,250,000",
+      "badge": "Card Instant Discount",
       "isBest": false,
       "rating": 4.7,
-      "delivery": "Free home delivery",
-      "warranty": "1-Year Guarantee",
-      "url": "https://texnomart.uz"
+      "delivery": "Fast post office courier 1-2 days",
+      "warranty": "Official Authorized Distributor",
+      "url": "https://11st.co.kr"
+    },
+    {
+      "name": "Apple Korea Official Store (애플 코리아)",
+      "priceUSD": "$1,690",
+      "priceUZS": "₩2,390,000",
+      "badge": "Free Engraving & Standard Delivery",
+      "isBest": false,
+      "rating": 5.0,
+      "delivery": "Free standard delivery",
+      "warranty": "Eligible for AppleCare+",
+      "url": "https://apple.com/kr"
     }
   ],
   "specsComparison": [
     {"feature": "Processor (Chip)", "value": "Apple M4 (10-core CPU, 10-core GPU)"},
-    {"feature": "Memory (RAM)", "value": "16GB Unified Memory (up to 32GB)"},
-    {"feature": "Storage (SSD)", "value": "512GB / 1TB High-speed PCIe SSD"},
+    {"feature": "Memory (RAM)", "value": "16GB Unified Memory (configurable up to 32GB)"},
+    {"feature": "Storage (SSD)", "value": "512GB / 1TB Ultra-fast NVMe SSD"},
     {"feature": "Display", "value": "14.2-inch Liquid Retina XDR, 120Hz ProMotion"},
-    {"feature": "Battery Life", "value": "Up to 24 hours all-day battery"}
+    {"feature": "Battery Life", "value": "Up to 24 hours all-day battery life"}
   ],
   "recommendation": {
-    "verdict": "The M4 chip sets a new benchmark for efficiency and speed with standard 16GB RAM, making it the supreme choice for creators and developers.",
-    "whoShouldBuy": "Software engineers, creative pros, 4K video editors, and travelers demanding extreme battery life.",
-    "whoShouldWait": "Owners of M3 Pro or M3 Max who already possess ample GPU performance."
+    "verdict": "The M4 chip delivers industry-leading power efficiency and standard 16GB RAM, making it the highest value choice for developers and creators in South Korea.",
+    "whoShouldBuy": "Software developers, creators, students, and professionals needing 24-hour battery without carrying chargers.",
+    "whoShouldWait": "Current users of high-end M3 Pro or M3 Max chips who already have sufficient power."
   }
 }
 `;

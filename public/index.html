@@ -233,10 +233,10 @@
                 <!-- Tezkor Taklif Tugmalari (Quick Chips) -->
                 <div class="quick-chips">
                     <span class="chips-label" data-i18n="quickQueriesLabel">Popular searches:</span>
-                    <button type="button" class="prompt-chip" data-query="MacBook M4" data-i18n="chipMacBook">💻 MacBook M4</button>
-                    <button type="button" class="prompt-chip" data-query="iPhone 16 Pro Max 256GB" data-i18n="chipIPhone">📱 iPhone 16 Pro Max</button>
-                    <button type="button" class="prompt-chip" data-query="Sony WH-1000XM5 headphones" data-i18n="chipSony">🎧 Sony WH-1000XM5</button>
-                    <button type="button" class="prompt-chip" data-query="PlayStation 5 Pro" data-i18n="chipPS5">🎮 PS5 Pro</button>
+                    <button type="button" class="prompt-chip" data-query-en="MacBook M4" data-query-ko="맥북 M4" data-i18n="chipMacBook">💻 MacBook M4</button>
+                    <button type="button" class="prompt-chip" data-query-en="iPhone 16 Pro Max" data-query-ko="아이폰 16 프로 맥스" data-i18n="chipIPhone">📱 iPhone 16 Pro Max</button>
+                    <button type="button" class="prompt-chip" data-query-en="Sony WH-1000XM5" data-query-ko="소니 WH-1000XM5" data-i18n="chipSony">🎧 Sony WH-1000XM5</button>
+                    <button type="button" class="prompt-chip" data-query-en="PlayStation 5 Pro" data-query-ko="플레이스테이션 5 프로" data-i18n="chipPS5">🎮 PS5 Pro</button>
                 </div>
             </section>
 
@@ -286,6 +286,41 @@
                                 <line x1="10" y1="14" x2="21" y2="3"/>
                             </svg>
                         </a>
+                    </div>
+                </div>
+
+                <!-- 2.5. Karrot Market (당근마켓) 중고 / 미개봉 시세 분석 -->
+                <div class="karrot-market-card" id="resKarrotCard">
+                    <div class="karrot-badge" data-i18n="karrotSectionBadge">🥕 Karrot Market (당근마켓) Second-Hand Analysis</div>
+                    <div class="karrot-content">
+                        <div class="karrot-left">
+                            <div class="karrot-brand-header">
+                                <span class="karrot-carrot-icon">🥕</span>
+                                <div>
+                                    <h4 class="karrot-title">당근마켓 (Karrot Market)</h4>
+                                    <span class="karrot-condition-tag" id="resKarrotCondition">S-Grade / Unopened Packaging</span>
+                                </div>
+                            </div>
+                            <div class="karrot-price-block">
+                                <span class="karrot-price-label" data-i18n="karrotPriceLabel">Estimated Karrot Used Price:</span>
+                                <div class="karrot-price-main" id="resKarrotPriceKRW">₩1,750,000 ~ ₩1,850,000</div>
+                                <div class="karrot-price-usd" id="resKarrotPriceUSD">$1,250 ~ $1,320</div>
+                            </div>
+                            <div class="karrot-savings-badge" id="resKarrotSavings">
+                                💰 Save approx. ₩350,000 vs. Brand New retail
+                            </div>
+                        </div>
+                        <div class="karrot-right">
+                            <div class="karrot-tip-box">
+                                <span class="karrot-tip-title" data-i18n="karrotTipLabel">💡 AI Safe Trading Tip:</span>
+                                <p class="karrot-tip-text" id="resKarrotTip">
+                                    Check battery health and cycle count before buying.
+                                </p>
+                            </div>
+                            <a href="https://www.daangn.com" target="_blank" class="karrot-visit-btn" id="resKarrotLink">
+                                <span data-i18n="btnVisitKarrot">Search on Karrot (당근) ↗</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
 

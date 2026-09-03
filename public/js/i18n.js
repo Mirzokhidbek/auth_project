@@ -87,6 +87,14 @@ export const translations = {
         recWhoBuyTitle: "✅ Ideal for:",
         recWhoWaitTitle: "⏳ Who should consider alternatives:",
 
+        // Karrot Market Section
+        karrotSectionBadge: "🥕 Karrot Market (당근마켓) Second-Hand Analysis",
+        karrotPriceLabel: "Estimated Karrot Used Price:",
+        karrotSavingsLabel: "Savings vs. Brand New:",
+        karrotConditionLabel: "Condition Standard:",
+        karrotTipLabel: "💡 AI Safe Trading Tip:",
+        btnVisitKarrot: "Search on Karrot (당근) ↗",
+
         // History
         historySectionTitle: "📜 Recent Search History",
         historyEmpty: "No search history yet"
@@ -174,6 +182,14 @@ export const translations = {
         recSectionTitle: "NeuroFox AI 전문가 총평",
         recWhoBuyTitle: "✅ 이런 분께 추천합니다:",
         recWhoWaitTitle: "⏳ 이런 분은 대기나 다른 제품 추천:",
+
+        // Karrot Market Section
+        karrotSectionBadge: "🥕 당근마켓 실시간 중고/미개봉 시세 분석",
+        karrotPriceLabel: "예상 당근 거래 시세:",
+        karrotSavingsLabel: "새 제품 대비 절약 금액:",
+        karrotConditionLabel: "시세 기준 상태:",
+        karrotTipLabel: "💡 당근 직거래 AI 안전 팁:",
+        btnVisitKarrot: "당근에서 매물 찾기 ↗",
 
         // History
         historySectionTitle: "📜 최근 검색 기록",
