@@ -4,49 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NeuroFox — Create Your Vision</title>
-    <meta name="description" content="AI-assisted workspace to craft and elevate your ideas. Ultra-secure authentication.">
-    <!-- Google Fonts: Plus Jakarta Sans / Inter -->
+    <meta name="description" content="AI-assisted workspace to craft and elevate your ideas. Ultra-secure authentication with 3D interactive experience.">
+    <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="page-container">
-        <!-- Asosiy Split Karta (Chapda rasm, o'ngda forma) -->
+    <!-- 3D Interaktiv Oltin Zarrachalar Kanvasi (Background Golden Embers) -->
+    <canvas id="particlesCanvas" class="particles-canvas"></canvas>
+
+    <!-- Orqa fon ambient nur dog'lari -->
+    <div class="ambient-sphere sphere-gold"></div>
+    <div class="ambient-sphere sphere-amber"></div>
+
+    <div class="page-container" id="perspectiveContainer">
+        <!-- Asosiy 3D Tilt Karta (Chapda rasm, o'ngda forma) -->
         <div class="auth-split-card" id="authCard">
+            <!-- 3D Nur akslanishi (Dynamic Light Glare Sheen) -->
+            <div class="card-glare" id="cardGlare"></div>
             
             <!-- ======================================================== -->
-            <!-- CHAP TOMON: Badiiy Rasm va Brend Bloki                   -->
+            <!-- CHAP TOMON: Badiiy Rasm va Brend Bloki (3D Parallax)    -->
             <!-- ======================================================== -->
-            <div class="art-column">
-                <img src="/assets/art.jpg" alt="NeuroFox Vision Art" class="art-background-image">
+            <div class="art-column" id="artColumn">
+                <img src="/assets/art.jpg" alt="NeuroFox Vision Art" class="art-background-image" id="artImage">
+                <div class="art-mesh-glow"></div>
                 
-                <!-- Brend Logosi (Yuqori chap burchak) -->
-                <div class="brand-badge">
+                <!-- Brend Logosi (Yuqori chap burchak - 3D qatlam) -->
+                <div class="brand-badge" id="brandBadge">
                     <span class="brand-fox-icon">🦊</span>
                     <span class="brand-name">NeuroFox</span>
                 </div>
 
-                <!-- Pastki yozuvlar va Karusel chiziqlari -->
-                <div class="art-bottom-scrim">
-                    <div class="carousel-indicators">
-                        <span class="indicator active"></span>
-                        <span class="indicator"></span>
-                        <span class="indicator"></span>
+                <!-- Pastki yozuvlar va Interaktiv Karusel chiziqlari -->
+                <div class="art-bottom-scrim" id="artScrim">
+                    <div class="carousel-indicators" id="carouselIndicators">
+                        <span class="indicator active" data-slide="0"></span>
+                        <span class="indicator" data-slide="1"></span>
+                        <span class="indicator" data-slide="2"></span>
                     </div>
-                    <h1 class="art-title">Create Your Vision</h1>
-                    <p class="art-subtitle">AI-assisted workspace to craft and elevate your ideas.</p>
+                    <div class="carousel-text-wrapper">
+                        <h1 class="art-title" id="artTitle">Create Your Vision</h1>
+                        <p class="art-subtitle" id="artSubtitle">AI-assisted workspace to craft and elevate your ideas.</p>
+                    </div>
                 </div>
             </div>
 
             <!-- ======================================================== -->
-            <!-- O'NG TOMON: Forma (Sign Up / Log In)                      -->
+            <!-- O'NG TOMON: Forma (Sign Up / Log In) (3D Qatlamlar)       -->
             <!-- ======================================================== -->
-            <div class="form-column">
+            <div class="form-column" id="formColumn">
                 <!-- Yuqoridagi Tab Switcher: [ Sign Up | Log In ] -->
                 <div class="pill-switcher-wrapper">
-                    <div class="pill-switcher">
+                    <div class="pill-switcher" id="pillSwitcher">
+                        <div class="pill-highlight" id="pillHighlight"></div>
                         <button type="button" class="switcher-btn active" id="tabSignUp">Sign Up</button>
                         <button type="button" class="switcher-btn" id="tabLogIn">Log In</button>
                     </div>
@@ -62,18 +75,18 @@
                 <!-- SIGN UP FORMASI                                      -->
                 <!-- ---------------------------------------------------- -->
                 <form id="signUpForm" class="auth-form active">
-                    <!-- First Name & Last Name (Yong'oq shaklida ikki ustun) -->
+                    <!-- First Name & Last Name (Ikki ustun) -->
                     <div class="names-row">
-                        <div class="input-field">
+                        <div class="input-field interactive-3d-field">
                             <input type="text" id="signUpFirstName" placeholder="First Name" required autocomplete="given-name">
                         </div>
-                        <div class="input-field">
+                        <div class="input-field interactive-3d-field">
                             <input type="text" id="signUpLastName" placeholder="Last Name" required autocomplete="family-name">
                         </div>
                     </div>
 
                     <!-- Email Input -->
-                    <div class="input-field with-icon">
+                    <div class="input-field with-icon interactive-3d-field">
                         <svg class="field-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect width="20" height="16" x="2" y="4" rx="2"/>
                             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
@@ -82,7 +95,7 @@
                     </div>
 
                     <!-- Password Input -->
-                    <div class="input-field with-icon with-eye">
+                    <div class="input-field with-icon with-eye interactive-3d-field">
                         <svg class="field-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
@@ -97,7 +110,7 @@
                     </div>
 
                     <!-- Confirm Password Input -->
-                    <div class="input-field with-icon with-eye">
+                    <div class="input-field with-icon with-eye interactive-3d-field">
                         <svg class="field-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                         </svg>
@@ -110,8 +123,9 @@
                         </button>
                     </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" class="submit-btn" id="signUpBtn">
+                    <!-- 3D Shimmer Submit Button -->
+                    <button type="submit" class="submit-btn interactive-3d-btn" id="signUpBtn">
+                        <span class="btn-shimmer"></span>
                         <span class="btn-text">Create an Account</span>
                         <div class="btn-spinner" style="display: none;"></div>
                     </button>
@@ -122,7 +136,7 @@
                 <!-- ---------------------------------------------------- -->
                 <form id="logInForm" class="auth-form">
                     <!-- Email Input -->
-                    <div class="input-field with-icon">
+                    <div class="input-field with-icon interactive-3d-field">
                         <svg class="field-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect width="20" height="16" x="2" y="4" rx="2"/>
                             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
@@ -131,7 +145,7 @@
                     </div>
 
                     <!-- Password Input -->
-                    <div class="input-field with-icon with-eye">
+                    <div class="input-field with-icon with-eye interactive-3d-field">
                         <svg class="field-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
@@ -145,14 +159,15 @@
                         </button>
                     </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" class="submit-btn" id="logInBtn">
+                    <!-- 3D Shimmer Submit Button -->
+                    <button type="submit" class="submit-btn interactive-3d-btn" id="logInBtn">
+                        <span class="btn-shimmer"></span>
                         <span class="btn-text">Log In</span>
                         <div class="btn-spinner" style="display: none;"></div>
                     </button>
                 </form>
 
-                <!-- Xavfsizlik ko'rsatkichi (Sokin va nozik) -->
+                <!-- Xavfsizlik ko'rsatkichi -->
                 <div class="secure-footer-note">
                     <span class="lock-shield">🛡️</span>
                     <span>Protected by <b>HttpOnly Cookies & Bcrypt</b> (Zero XSS)</span>
@@ -195,7 +210,7 @@
                 <pre id="apiOutput">Checking credentials...</pre>
             </div>
 
-            <button type="button" class="logout-btn" id="logoutBtn">
+            <button type="button" class="logout-btn interactive-3d-btn" id="logoutBtn">
                 Sign Out
             </button>
         </div>
