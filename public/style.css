@@ -27,7 +27,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -193,13 +193,22 @@ body {
     pointer-events: none;
 }
 
+/* Brend logosi va Til almashtirgich yuqori paneli */
+.art-top-bar {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 24px 0 24px;
+}
+
 .brand-badge {
     position: relative;
     z-index: 3;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin: 24px 0 0 24px;
     background: rgba(13, 14, 20, 0.55);
     backdrop-filter: blur(14px);
     padding: 7px 16px 7px 12px;
@@ -207,6 +216,54 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.12);
     width: fit-content;
     transform: translateZ(45px);
+}
+
+/* Til Almashtirgich (Language Switcher) */
+.lang-switcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(13, 14, 20, 0.55);
+    backdrop-filter: blur(14px);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transform: translateZ(45px);
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: #9499a8;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 8px;
+    transition: var(--transition-fast);
+}
+
+.lang-btn:hover {
+    color: #ffffff;
+}
+
+.lang-btn.active {
+    color: #07080b;
+    background: var(--accent-gradient);
+    font-weight: 800;
+    box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+.lang-divider {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 12px;
+    user-select: none;
+}
+
+.workspace-lang-switcher {
+    margin: 0;
+    transform: none;
+    background: #171922;
 }
 
 .brand-fox-icon {

@@ -1,0 +1,239 @@
+// ============================================================================
+// I18N (INTERNATIONALIZATION) MODULE — ENGLISH & KOREAN (한국어)
+// ============================================================================
+
+export const translations = {
+    en: {
+        // Brand & Vision
+        brandVisionTitle: "Create Your Vision",
+        brandVisionSubtitle: "AI-assisted workspace to craft and elevate your ideas.",
+        visionSlide1Title: "Create Your Vision",
+        visionSlide1Sub: "AI-assisted workspace to craft and elevate your ideas.",
+        visionSlide2Title: "Unleash Imagination",
+        visionSlide2Sub: "Compare prices and discover optimal deals across multiple marketplaces in real time.",
+        visionSlide3Title: "Studio-Grade Power",
+        visionSlide3Sub: "Powered by Google Gemini 3.6 Flash for precision market analytics.",
+
+        // Auth Tabs & Titles
+        tabSignUp: "Sign Up",
+        tabLogIn: "Log In",
+        titleSignUp: "Create An Account",
+        titleLogIn: "Welcome Back",
+
+        // Inputs & Placeholders
+        placeholderFirstName: "First Name",
+        placeholderLastName: "Last Name",
+        placeholderEmail: "Enter Your Email",
+        placeholderPassword: "Password",
+        placeholderConfirmPassword: "Confirm Password",
+
+        // Buttons & Actions
+        btnCreateAccount: "Create an Account",
+        btnLogIn: "Log In",
+        btnProcessing: "Processing...",
+        securityNote: "Protected by <b>HttpOnly Cookies & Bcrypt</b> (Zero XSS)",
+
+        // Document Title
+        docTitle: "NeuroFox — AI Price Comparison Platform",
+        navBrandText: "AI Price Engine",
+
+        // Alert Messages
+        alertPasswordMismatch: "Passwords do not match! Please verify.",
+        alertPasswordLength: "Password must be at least 6 characters long.",
+        alertAccountCreated: "Account created successfully! Redirecting...",
+        alertWelcomeBack: "Welcome back!",
+        alertSignedOut: "You have been signed out successfully.",
+        alertConnectionError: "Connection error. Please try again.",
+        alertEmailExists: "An account with this email already exists.",
+        alertInvalidCredentials: "Invalid email or password.",
+        alertFieldsRequired: "Please fill in all fields.",
+        alertGenericError: "An error occurred. Please try again.",
+        alertEnterQuery: "Please enter a product query (e.g. 'MacBook M4')",
+
+        // Workspace Navigation
+        engineBadge: "⚡ Gemini 3.6 Flash",
+        btnSignOut: "Sign Out",
+
+        // Hero Search Section
+        heroBadge: "✨ Smart Market Analytics & Price Comparison",
+        heroHeading1: "Find The Best Price with ",
+        heroHeadingSpan: "AI Intelligence",
+        heroSubtext: "Type any product query (e.g., 'MacBook M4', 'iPhone 16 Pro'). Gemini AI compares prices across stores, pinpoints the cheapest deal, and analyzes specifications.",
+        searchPlaceholder: "What are you looking for? e.g., 'I need a MacBook M4'",
+        btnAiCompare: "AI Compare",
+        quickQueriesLabel: "Popular searches:",
+        chipMacBook: "💻 MacBook M4",
+        chipIPhone: "📱 iPhone 16 Pro Max",
+        chipSony: "🎧 Sony WH-1000XM5",
+        chipPS5: "🎮 PS5 Pro",
+
+        // AI Loading
+        loadingTitle: "Gemini 3.6 Flash is analyzing real-time market prices...",
+        loadingStep1: "🏪 Scanning trusted online retailers and inventory...",
+        loadingStep2: "🏷️ Calculating discounts, savings, and the optimal Best Deal...",
+        loadingStep3: "⚙️ Comparing technical specifications and formulating expert verdict...",
+
+        // Results Section
+        verifiedTag: "✓ AI Verified Deals",
+        bestDealBadge: "🏆 BEST DEAL (LOWEST PRICE)",
+        recommendedStoreLabel: "Recommended Retailer:",
+        savingsSuffix: "savings compared to average",
+        btnVisitStore: "Visit Store",
+        storesSectionTitle: "🏪 Price Comparison by Retailer",
+        storesCountSuffix: "trusted stores analyzed",
+        btnViewInStore: "View Deal ↗",
+        specsSectionTitle: "⚙️ Technical Specifications Matrix",
+        recSectionTitle: "NeuroFox AI Expert Recommendation",
+        recWhoBuyTitle: "✅ Ideal for:",
+        recWhoWaitTitle: "⏳ Who should consider alternatives:",
+
+        // History
+        historySectionTitle: "📜 Recent Search History",
+        historyEmpty: "No search history yet"
+    },
+    ko: {
+        // Brand & Vision
+        brandVisionTitle: "비전을 현실로",
+        brandVisionSubtitle: "당신의 아이디어를 실현하고 발전시키는 AI 워크스페이스.",
+        visionSlide1Title: "비전을 현실로",
+        visionSlide1Sub: "당신의 아이디어를 실현하고 발전시키는 AI 워크스페이스.",
+        visionSlide2Title: "무한한 상상력",
+        visionSlide2Sub: "모든 쇼핑몰의 최저가를 실시간으로 비교하고 최고의 선택을 찾아보세요.",
+        visionSlide3Title: "압도적인 AI 성능",
+        visionSlide3Sub: "Google Gemini 3.6 Flash 기반의 정밀한 시장 가격 분석 엔진.",
+
+        // Auth Tabs & Titles
+        tabSignUp: "회원가입",
+        tabLogIn: "로그인",
+        titleSignUp: "계정 만들기",
+        titleLogIn: "다시 오신 것을 환영합니다",
+
+        // Inputs & Placeholders
+        placeholderFirstName: "이름",
+        placeholderLastName: "성",
+        placeholderEmail: "이메일 주소 입력",
+        placeholderPassword: "비밀번호",
+        placeholderConfirmPassword: "비밀번호 확인",
+
+        // Buttons & Actions
+        btnCreateAccount: "계정 생성하기",
+        btnLogIn: "로그인",
+        btnProcessing: "처리 중...",
+        securityNote: "<b>HttpOnly 쿠키 및 Bcrypt</b> 암호화 적용 (XSS 해킹 100% 차단)",
+
+        // Document Title
+        docTitle: "NeuroFox — AI 가격 비교 플랫폼",
+        navBrandText: "AI 가격 비교 엔진",
+
+        // Alert Messages
+        alertPasswordMismatch: "비밀번호가 일치하지 않습니다! 다시 확인해주세요.",
+        alertPasswordLength: "비밀번호는 최소 6자 이상이어야 합니다.",
+        alertAccountCreated: "회원가입이 완료되었습니다! 접속 중...",
+        alertWelcomeBack: "환영합니다!",
+        alertSignedOut: "성공적으로 로그아웃되었습니다.",
+        alertConnectionError: "서버 연결 오류가 발생했습니다. 다시 시도해주세요.",
+        alertEmailExists: "이미 가입된 이메일 주소입니다.",
+        alertInvalidCredentials: "이메일 또는 비밀번호가 올바르지 않습니다.",
+        alertFieldsRequired: "모든 항목을 입력해주세요.",
+        alertGenericError: "오류가 발생했습니다. 다시 시도해주세요.",
+        alertEnterQuery: "검색어를 입력해주세요 (예: '맥북 M4')",
+
+        // Workspace Navigation
+        engineBadge: "⚡ Gemini 3.6 Flash 엔진",
+        btnSignOut: "로그아웃",
+
+        // Hero Search Section
+        heroBadge: "✨ 스마트 시장 분석 및 최저가 비교",
+        heroHeading1: "AI로 찾는 ",
+        heroHeadingSpan: "가장 스마트한 최저가",
+        heroSubtext: "원하는 제품(예: '맥북 M4', '아이폰 16 프로')을 입력하세요. Gemini AI가 쿠팡, 네이버, 11번가 등 주요 쇼핑몰을 비교 분석하여 최저가와 맞춤 스펙을 추천합니다.",
+        searchPlaceholder: "찾으시는 제품을 입력하세요 (예: '맥북 M4 필요해')",
+        btnAiCompare: "AI 최저가 비교",
+        quickQueriesLabel: "인기 검색어:",
+        chipMacBook: "💻 맥북 M4",
+        chipIPhone: "📱 아이폰 16 프로 맥스",
+        chipSony: "🎧 소니 WH-1000XM5",
+        chipPS5: "🎮 PS5 프로",
+
+        // AI Loading
+        loadingTitle: "Gemini 3.6 Flash가 실시간 시장 가격을 정밀 분석 중입니다...",
+        loadingStep1: "🏪 쿠팡, 네이버 쇼핑, 11번가, 애플 코리아 등 실시간 가격 조회 중...",
+        loadingStep2: "🏷️ 최대 할인율 및 절약 금액(Best Deal) 산출 중...",
+        loadingStep3: "⚙️ 하드웨어 세부 스펙 비교 및 전문가 맞춤 추천서 작성 중...",
+
+        // Results Section
+        verifiedTag: "✓ AI 공인 최저가 딜",
+        bestDealBadge: "🏆 최저가 추천 딜 (BEST DEAL)",
+        recommendedStoreLabel: "추천 판매처:",
+        savingsSuffix: "평균가 대비 절약",
+        btnVisitStore: "쇼핑몰 바로가기",
+        storesSectionTitle: "🏪 주요 판매처별 가격 비교",
+        storesCountSuffix: "개 검증된 쇼핑몰 분석 완료",
+        btnViewInStore: "구매처 이동 ↗",
+        specsSectionTitle: "⚙️ 핵심 기술 스펙 비교표",
+        recSectionTitle: "NeuroFox AI 전문가 총평",
+        recWhoBuyTitle: "✅ 이런 분께 추천합니다:",
+        recWhoWaitTitle: "⏳ 이런 분은 대기나 다른 제품 추천:",
+
+        // History
+        historySectionTitle: "📜 최근 검색 기록",
+        historyEmpty: "최근 검색 기록이 없습니다"
+    }
+};
+
+let currentLang = localStorage.getItem('neurofox_lang') || 'en';
+
+export function getLanguage() {
+    return currentLang;
+}
+
+export function t(key) {
+    const langDict = translations[currentLang] || translations.en;
+    return langDict[key] || translations.en[key] || key;
+}
+
+export function setLanguage(lang) {
+    if (lang !== 'en' && lang !== 'ko') return;
+    currentLang = lang;
+    localStorage.setItem('neurofox_lang', lang);
+
+    // Apply translations across DOM
+    applyTranslations();
+
+    // Notify listeners
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+}
+
+export function applyTranslations() {
+    const dict = translations[currentLang] || translations.en;
+
+    // Update text elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+            el.innerHTML = dict[key];
+        }
+    });
+
+    // Update placeholder elements
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[key]) {
+            el.placeholder = dict[key];
+        }
+    });
+
+    // Update language toggle buttons visual active state
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        const btnLang = btn.getAttribute('data-lang');
+        btn.classList.toggle('active', btnLang === currentLang);
+    });
+
+    // Update HTML lang attribute
+    document.documentElement.lang = currentLang;
+
+    // Update Browser Document Title
+    if (dict.docTitle) {
+        document.title = dict.docTitle;
+    }
+}

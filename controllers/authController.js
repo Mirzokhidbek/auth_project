@@ -21,54 +21,48 @@ const signUp = async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
-        // 1. Maydonlar to'ldirilganini tekshiramiz
         if (!name || !email || !password) {
             return res.status(400).json({
                 success: false,
-                message: 'Iltimos, barcha maydonlarni (ism, email, parol) to\'ldiring!'
+                code: 'FIELDS_REQUIRED',
+                message: 'Please fill in all fields (name, email, password)'
             });
         }
 
-        // 2. Parol uzunligini tekshiramiz
         if (password.length < 6) {
             return res.status(400).json({
                 success: false,
-                message: 'Parol kamida 6 ta belgidan iborat bo\'lishi kerak!'
+                code: 'PASSWORD_TOO_SHORT',
+                message: 'Password must be at least 6 characters long'
             });
         }
 
-        // 3. Ushbu email bilan oldin ro'yxatdan o'tilganmi?
         const existingUser = await User.findOne({ email: email.toLowerCase().trim() });
         if (existingUser) {
             return res.status(400).json({
                 success: false,
-                message: 'Bu email manzil bilan allaqachon akkaunt ochilgan!'
+                code: 'EMAIL_ALREADY_EXISTS',
+                message: 'An account with this email already exists'
             });
         }
 
-        // 4. Yangi foydalanuvchi yaratamiz
-        // Eslatma: Parol avtomatik ravishda User modelidagi pre('save') hook orqali Bcrypt bilan hash qilinadi!
         const user = new User({
             name: name.trim(),
             email: email.toLowerCase().trim(),
             password: password
         });
 
-        // 5. Tokenlarni generatsiya qilamiz
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
 
-        // 6. Xavfsizlik: Refresh tokenni foydalanuvchining bazadagi profiliga saqlab qo'yamiz
         user.refreshToken = refreshToken;
         await user.save();
 
-        // 7. Tokenlarni xavfsiz HttpOnly kuki orqali brauzerga jo'natamiz
         sendAuthCookies(res, accessToken, refreshToken);
 
-        // 8. Muvaffaqiyatli javob qaytaramiz (Parol va token JSON tanasida berilmaydi!)
         res.status(201).json({
             success: true,
-            message: 'Tabriklaymiz, muvaffaqiyatli ro\'yxatdan o\'tdingiz!',
+            message: 'Account created successfully',
             user: {
                 id: user._id,
                 name: user.name,
@@ -78,66 +72,57 @@ const signUp = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Sign Up xatoligi:', error);
+        console.error('Sign Up error:', error);
         res.status(500).json({
             success: false,
-            message: 'Serverda xatolik yuz berdi. Qaytadan urinib ko\'ring.'
+            code: 'SERVER_ERROR',
+            message: 'Server error occurred. Please try again later.'
         });
     }
 };
 
-/**
- * @desc    Mavjud foydalanuvchi tizimga kirishi (Sign In / Login)
- * @route   POST /api/auth/signin
- * @access  Public
- */
 const signIn = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // 1. Validatsiya
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
-                message: 'Email va parolni kiriting!'
+                code: 'FIELDS_REQUIRED',
+                message: 'Please provide email and password'
             });
         }
 
-        // 2. Foydalanuvchini email orqali qidiramiz
-        // Modelda 'password: select: false' bo'lgani sababli, tekshirish uchun +password deb so'raymiz
         const user = await User.findOne({ email: email.toLowerCase().trim() }).select('+password');
 
         if (!user) {
             return res.status(401).json({
                 success: false,
-                message: 'Email yoki parol noto\'g\'ri!'
+                code: 'INVALID_CREDENTIALS',
+                message: 'Invalid email or password'
             });
         }
 
-        // 3. Bcrypt yordamida kiritilgan ochiq parolni bazadagi hash bilan solishtiramiz
         const isMatch = await user.comparePassword(password);
         if (!isMatch) {
             return res.status(401).json({
                 success: false,
-                message: 'Email yoki parol noto\'g\'ri!'
+                code: 'INVALID_CREDENTIALS',
+                message: 'Invalid email or password'
             });
         }
 
-        // 4. Parol to'g'ri bo'lsa: yangi tokenlar yaratamiz
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
 
-        // 5. Yangi refresh tokenni bazaga yozamiz
         user.refreshToken = refreshToken;
         await user.save();
 
-        // 6. HttpOnly kukilarni o'rnatamiz
         sendAuthCookies(res, accessToken, refreshToken);
 
-        // 7. Xavfsiz javob qaytarish
         res.status(200).json({
             success: true,
-            message: 'Tizimga muvaffaqiyatli kirdingiz!',
+            message: 'Signed in successfully',
             user: {
                 id: user._id,
                 name: user.name,
@@ -147,25 +132,19 @@ const signIn = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Sign In xatoligi:', error);
+        console.error('Sign In error:', error);
         res.status(500).json({
             success: false,
-            message: 'Serverda xatolik yuz berdi. Qaytadan urinib ko\'ring.'
+            code: 'SERVER_ERROR',
+            message: 'Server error occurred. Please try again later.'
         });
     }
 };
 
-/**
- * @desc    Tizimdan chiqish (Sign Out / Logout)
- * @route   POST /api/auth/signout
- * @access  Private / Public
- */
 const signOut = async (req, res) => {
     try {
         const { refreshToken } = req.cookies;
 
-        // Agar foydalanuvchida refresh token bo'lsa, uni bazadan o'chirib yuboramiz
-        // Bu orqali token qayta ishlatilmasligi kafolatlanadi (Revocation)
         if (refreshToken) {
             await User.findOneAndUpdate(
                 { refreshToken },
@@ -173,20 +152,18 @@ const signOut = async (req, res) => {
             );
         }
 
-        // Brauzerdagi HttpOnly kukilarni tozalaymiz
         clearAuthCookies(res);
 
         res.status(200).json({
             success: true,
-            message: 'Tizimdan muvaffaqiyatli chiqdingiz. Sessiya xavfsiz yakunlandi.'
+            message: 'Signed out successfully. Session securely terminated.'
         });
     } catch (error) {
-        console.error('Sign Out xatoligi:', error);
-        // Har qanday holatda ham brauzer kukilarini tozalaymiz
+        console.error('Sign Out error:', error);
         clearAuthCookies(res);
         res.status(200).json({
             success: true,
-            message: 'Tizimdan chiqildi.'
+            message: 'Signed out'
         });
     }
 };

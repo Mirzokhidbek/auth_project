@@ -14,17 +14,18 @@ const ComparisonHistory = require('../models/ComparisonHistory');
  */
 const compareProduct = async (req, res) => {
     try {
-        const { query } = req.body;
+        const { query, lang } = req.body;
 
         if (!query || query.trim().length === 0) {
             return res.status(400).json({
                 success: false,
-                message: 'Iltimos, qidirilayotgan mahsulot nomini kiriting (masalan: "Menga MacBook M4 kerak")'
+                message: 'Please enter a product name or query'
             });
         }
 
-        // 1. Gemini 3.6 Flash orqali narxlar va xususiyatlarni tahlil qilamiz
-        const comparisonData = await comparePricesWithGemini(query.trim());
+        // 1. Gemini 3.6 Flash orqali narxlar va xususiyatlarni tahlil qilamiz (tanlangan tilda)
+        const selectedLang = (lang === 'ko') ? 'ko' : 'en';
+        const comparisonData = await comparePricesWithGemini(query.trim(), selectedLang);
 
         // 2. Qidiruv natijasini foydalanuvchining MongoDB profiliga saqlab qo'yamiz
         let savedHistory = null;

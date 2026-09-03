@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NeuroFox — AI Price Comparison Platform</title>
-    <meta name="description" content="AI-assisted price comparison platform powered by Gemini 3.6 Flash. Find the best deals across all stores.">
-    <!-- Google Fonts: Plus Jakarta Sans -->
+    <meta name="description" content="AI-assisted price comparison platform powered by Gemini 3.6 Flash. Find the best deals across all stores in English and Korean.">
+    <!-- Google Fonts: Plus Jakarta Sans & Noto Sans KR for Korean -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,7 +23,6 @@
         
         <!-- ======================================================== -->
         <!-- 1. AUTENTIFIKATSIYA QISMI (SIGN UP / LOG IN)             -->
-        <!-- (Tizimga kirmagan holatda ko'rinadi)                     -->
         <!-- ======================================================== -->
         <div class="auth-split-card" id="authCard">
             <!-- 3D Nur akslanishi (Specular Glare Sheen) -->
@@ -34,10 +33,19 @@
                 <img src="/assets/art.jpg" alt="NeuroFox Vision Art" class="art-background-image" id="artImage">
                 <div class="art-mesh-glow"></div>
                 
-                <!-- Brend Logosi -->
-                <div class="brand-badge" id="brandBadge">
-                    <span class="brand-fox-icon">🦊</span>
-                    <span class="brand-name">NeuroFox</span>
+                <!-- Brend Logosi va Til Almashtirgich -->
+                <div class="art-top-bar">
+                    <div class="brand-badge" id="brandBadge">
+                        <span class="brand-fox-icon">🦊</span>
+                        <span class="brand-name">NeuroFox</span>
+                    </div>
+
+                    <!-- Til almashtirgich (Language Switcher) -->
+                    <div class="lang-switcher">
+                        <button type="button" class="lang-btn active" data-lang="en">EN</button>
+                        <span class="lang-divider">/</span>
+                        <button type="button" class="lang-btn" data-lang="ko">한국어</button>
+                    </div>
                 </div>
 
                 <!-- Pastki yozuvlar va Karusel chiziqlari -->
@@ -48,8 +56,8 @@
                         <span class="indicator" data-slide="2"></span>
                     </div>
                     <div class="carousel-text-wrapper">
-                        <h1 class="art-title" id="artTitle">Create Your Vision</h1>
-                        <p class="art-subtitle" id="artSubtitle">AI-assisted workspace to craft and elevate your ideas.</p>
+                        <h1 class="art-title" id="artTitle" data-i18n="brandVisionTitle">Create Your Vision</h1>
+                        <p class="art-subtitle" id="artSubtitle" data-i18n="brandVisionSubtitle">AI-assisted workspace to craft and elevate your ideas.</p>
                     </div>
                 </div>
             </div>
@@ -59,12 +67,12 @@
                 <div class="pill-switcher-wrapper">
                     <div class="pill-switcher" id="pillSwitcher">
                         <div class="pill-highlight" id="pillHighlight"></div>
-                        <button type="button" class="switcher-btn active" id="tabSignUp">Sign Up</button>
-                        <button type="button" class="switcher-btn" id="tabLogIn">Log In</button>
+                        <button type="button" class="switcher-btn active" id="tabSignUp" data-i18n="tabSignUp">Sign Up</button>
+                        <button type="button" class="switcher-btn" id="tabLogIn" data-i18n="tabLogIn">Log In</button>
                     </div>
                 </div>
 
-                <h2 class="form-title" id="formTitle">Create An Account</h2>
+                <h2 class="form-title" id="formTitle" data-i18n="titleSignUp">Create An Account</h2>
 
                 <!-- Xabarnoma / Alert bloki -->
                 <div class="alert-box" id="alertBox" style="display: none;"></div>
@@ -73,10 +81,10 @@
                 <form id="signUpForm" class="auth-form active">
                     <div class="names-row">
                         <div class="input-field interactive-3d-field">
-                            <input type="text" id="signUpFirstName" placeholder="First Name" required autocomplete="given-name">
+                            <input type="text" id="signUpFirstName" placeholder="First Name" data-i18n-placeholder="placeholderFirstName" required autocomplete="given-name">
                         </div>
                         <div class="input-field interactive-3d-field">
-                            <input type="text" id="signUpLastName" placeholder="Last Name" required autocomplete="family-name">
+                            <input type="text" id="signUpLastName" placeholder="Last Name" data-i18n-placeholder="placeholderLastName" required autocomplete="family-name">
                         </div>
                     </div>
 
@@ -85,7 +93,7 @@
                             <rect width="20" height="16" x="2" y="4" rx="2"/>
                             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                         </svg>
-                        <input type="email" id="signUpEmail" placeholder="Enter Your Email" required autocomplete="email">
+                        <input type="email" id="signUpEmail" placeholder="Enter Your Email" data-i18n-placeholder="placeholderEmail" required autocomplete="email">
                     </div>
 
                     <div class="input-field with-icon with-eye interactive-3d-field">
@@ -93,7 +101,7 @@
                             <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                         </svg>
-                        <input type="password" id="signUpPassword" placeholder="Password" required autocomplete="new-password">
+                        <input type="password" id="signUpPassword" placeholder="Password" data-i18n-placeholder="placeholderPassword" required autocomplete="new-password">
                         <button type="button" class="eye-toggle" data-target="signUpPassword" aria-label="Toggle password">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
@@ -106,7 +114,7 @@
                         <svg class="field-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                         </svg>
-                        <input type="password" id="signUpConfirmPassword" placeholder="Confirm Password" required autocomplete="new-password">
+                        <input type="password" id="signUpConfirmPassword" placeholder="Confirm Password" data-i18n-placeholder="placeholderConfirmPassword" required autocomplete="new-password">
                         <button type="button" class="eye-toggle" data-target="signUpConfirmPassword" aria-label="Toggle confirm password">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
@@ -117,7 +125,7 @@
 
                     <button type="submit" class="submit-btn interactive-3d-btn" id="signUpBtn">
                         <span class="btn-shimmer"></span>
-                        <span class="btn-text">Create an Account</span>
+                        <span class="btn-text" data-i18n="btnCreateAccount">Create an Account</span>
                         <div class="btn-spinner" style="display: none;"></div>
                     </button>
                 </form>
@@ -129,7 +137,7 @@
                             <rect width="20" height="16" x="2" y="4" rx="2"/>
                             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                         </svg>
-                        <input type="email" id="logInEmail" placeholder="Enter Your Email" required autocomplete="email">
+                        <input type="email" id="logInEmail" placeholder="Enter Your Email" data-i18n-placeholder="placeholderEmail" required autocomplete="email">
                     </div>
 
                     <div class="input-field with-icon with-eye interactive-3d-field">
@@ -137,7 +145,7 @@
                             <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                         </svg>
-                        <input type="password" id="logInPassword" placeholder="Password" required autocomplete="current-password">
+                        <input type="password" id="logInPassword" placeholder="Password" data-i18n-placeholder="placeholderPassword" required autocomplete="current-password">
                         <button type="button" class="eye-toggle" data-target="logInPassword" aria-label="Toggle password">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
@@ -148,21 +156,19 @@
 
                     <button type="submit" class="submit-btn interactive-3d-btn" id="logInBtn">
                         <span class="btn-shimmer"></span>
-                        <span class="btn-text">Log In</span>
+                        <span class="btn-text" data-i18n="btnLogIn">Log In</span>
                         <div class="btn-spinner" style="display: none;"></div>
                     </button>
                 </form>
 
-                <div class="secure-footer-note">
-                    <span class="lock-shield">🛡️</span>
-                    <span>Protected by <b>HttpOnly Cookies & Bcrypt</b> (Zero XSS)</span>
+                <div class="secure-footer-note" data-i18n="securityNote">
+                    Protected by <b>HttpOnly Cookies & Bcrypt</b> (Zero XSS)
                 </div>
             </div>
         </div>
 
         <!-- ======================================================== -->
         <!-- 2. AI PRICE COMPARISON PLATFORM (WORKSPACE)              -->
-        <!-- (Foydalanuvchi tizimga kirganida ochiladigan asosiy ilova)-->
         <!-- ======================================================== -->
         <div class="ai-workspace" id="aiWorkspace" style="display: none;">
             
@@ -171,10 +177,17 @@
                 <div class="nav-brand">
                     <span class="brand-fox">🦊</span>
                     <span class="brand-text">NeuroFox <span>AI Price Engine</span></span>
-                    <span class="engine-badge">⚡ Gemini 3.6 Flash</span>
+                    <span class="engine-badge" data-i18n="engineBadge">⚡ Gemini 3.6 Flash</span>
                 </div>
                 
                 <div class="nav-user-actions">
+                    <!-- Workspace Til Almashtirgich -->
+                    <div class="lang-switcher workspace-lang-switcher">
+                        <button type="button" class="lang-btn active" data-lang="en">EN</button>
+                        <span class="lang-divider">/</span>
+                        <button type="button" class="lang-btn" data-lang="ko">한국어</button>
+                    </div>
+
                     <div class="user-chip">
                         <div class="user-mini-avatar" id="navUserAvatar">U</div>
                         <span class="user-chip-name" id="navUserName">User</span>
@@ -185,7 +198,7 @@
                             <polyline points="16 17 21 12 16 7"/>
                             <line x1="21" y1="12" x2="9" y2="12"/>
                         </svg>
-                        <span>Chiqish</span>
+                        <span data-i18n="btnSignOut">Sign Out</span>
                     </button>
                 </div>
             </header>
@@ -193,21 +206,24 @@
             <!-- Asosiy Qidiruv Maydoni (Hero Search) -->
             <section class="search-hero-section">
                 <div class="hero-badge">
-                    <span class="ai-spark">✨</span> Aqlli Bozor Tahlili va Narx Solishtirish
+                    <span class="ai-spark">✨</span> <span data-i18n="heroBadge">Smart Market Analytics & Price Comparison</span>
                 </div>
-                <h1 class="hero-heading">Eng Maqbul Narxni <span>AI Bilan Toping</span></h1>
-                <p class="hero-subtext">Xohlagan tovaringizni yozing, Gemini AI barcha do'konlar narxini tahlil qilib, eng arzonini topadi va xususiyatlarini solishtiradi.</p>
+                <h1 class="hero-heading">
+                    <span data-i18n="heroHeading1">Find The Best Price with </span>
+                    <span data-i18n="heroHeadingSpan">AI Intelligence</span>
+                </h1>
+                <p class="hero-subtext" data-i18n="heroSubtext">Type any product query. Gemini AI compares prices across stores, pinpoints the cheapest deal, and analyzes specifications.</p>
 
                 <!-- Katta Qidiruv Paneli -->
                 <form id="priceCompareForm" class="ai-search-form">
                     <div class="search-input-box">
                         <span class="search-icon">🔍</span>
-                        <input type="text" id="productQueryInput" placeholder="Menga nima kerak? Masalan: 'Menga MacBook M4 kerak'" required autocomplete="off">
+                        <input type="text" id="productQueryInput" placeholder="What are you looking for? e.g., 'MacBook M4'" data-i18n-placeholder="searchPlaceholder" required autocomplete="off">
                         <button type="submit" class="ai-submit-btn" id="compareSubmitBtn">
                             <span class="btn-shimmer"></span>
                             <span class="btn-content">
                                 <span class="sparkle-icon">⚡</span>
-                                <span>AI Solishtirish</span>
+                                <span data-i18n="btnAiCompare">AI Compare</span>
                             </span>
                             <div class="btn-spinner" style="display: none;"></div>
                         </button>
@@ -216,58 +232,54 @@
 
                 <!-- Tezkor Taklif Tugmalari (Quick Chips) -->
                 <div class="quick-chips">
-                    <span class="chips-label">Mashhur so'rovlar:</span>
-                    <button type="button" class="prompt-chip" data-query="Menga MacBook M4 kerak">💻 MacBook M4</button>
-                    <button type="button" class="prompt-chip" data-query="iPhone 16 Pro Max 256GB">📱 iPhone 16 Pro Max</button>
-                    <button type="button" class="prompt-chip" data-query="Sony WH-1000XM5 naushnik">🎧 Sony WH-1000XM5</button>
-                    <button type="button" class="prompt-chip" data-query="PlayStation 5 Pro narxi">🎮 PS5 Pro</button>
+                    <span class="chips-label" data-i18n="quickQueriesLabel">Popular searches:</span>
+                    <button type="button" class="prompt-chip" data-query="MacBook M4" data-i18n="chipMacBook">💻 MacBook M4</button>
+                    <button type="button" class="prompt-chip" data-query="iPhone 16 Pro Max 256GB" data-i18n="chipIPhone">📱 iPhone 16 Pro Max</button>
+                    <button type="button" class="prompt-chip" data-query="Sony WH-1000XM5 headphones" data-i18n="chipSony">🎧 Sony WH-1000XM5</button>
+                    <button type="button" class="prompt-chip" data-query="PlayStation 5 Pro" data-i18n="chipPS5">🎮 PS5 Pro</button>
                 </div>
             </section>
 
-            <!-- ======================================================== -->
-            <!-- AI TAHLIL YUKLANISH HOLATI (Thinking State)               -->
-            <!-- ======================================================== -->
+            <!-- AI TAHLIL YUKLANISH HOLATI (Thinking State) -->
             <div class="ai-loading-card" id="aiLoadingCard" style="display: none;">
                 <div class="ai-radar-pulse"></div>
-                <h3>Gemini 3.6 Flash bozor narxlarini tahlil qilmoqda...</h3>
+                <h3 data-i18n="loadingTitle">Gemini 3.6 Flash is analyzing real-time market prices...</h3>
                 <div class="loading-steps">
-                    <div class="step-item active">🏪 O'zbekiston do'konlari (MacBro, Uzum, MediaPark, Texnomart) tekshirilmoqda</div>
-                    <div class="step-item">🏷️ Eng arzon narx va tejamkorlik aniqlanmoqda</div>
-                    <div class="step-item">⚙️ Texnik xususiyatlar solishtirilmoqda va tavsiya tuzilmoqda</div>
+                    <div class="step-item active" data-i18n="loadingStep1">🏪 Scanning trusted online retailers and inventory...</div>
+                    <div class="step-item" data-i18n="loadingStep2">🏷️ Calculating discounts, savings, and the optimal Best Deal...</div>
+                    <div class="step-item" data-i18n="loadingStep3">⚙️ Comparing technical specifications and formulating expert verdict...</div>
                 </div>
             </div>
 
-            <!-- ======================================================== -->
-            <!-- NATIJALAR PANELI (Comparison Results)                    -->
-            <!-- ======================================================== -->
+            <!-- NATIJALAR PANELI (Comparison Results) -->
             <section class="results-container" id="resultsContainer" style="display: none;">
                 
                 <!-- 1. Mahsulot Sarlavhasi va Xulosasi -->
                 <div class="product-header-card">
                     <div class="product-badge-row">
-                        <span class="product-category" id="resCategory">Kategoriya</span>
-                        <span class="verified-tag">✓ AI Verified Deals</span>
+                        <span class="product-category" id="resCategory">Category</span>
+                        <span class="verified-tag" data-i18n="verifiedTag">✓ AI Verified Deals</span>
                     </div>
-                    <h2 class="product-main-title" id="resProductName">Apple MacBook Pro 14 (M4)</h2>
-                    <p class="product-overview-text" id="resOverview">Mahsulot haqida qisqacha tavsif...</p>
+                    <h2 class="product-main-title" id="resProductName">Product Name</h2>
+                    <p class="product-overview-text" id="resOverview">Product overview summary...</p>
                 </div>
 
                 <!-- 2. Eng Arzon Variant Kartasi (Best Deal Hero) -->
                 <div class="best-deal-card" id="resBestDealCard">
                     <div class="best-deal-glow"></div>
-                    <div class="best-deal-badge">🏆 ENG ARZON VARIANT (BEST DEAL)</div>
+                    <div class="best-deal-badge" data-i18n="bestDealBadge">🏆 BEST DEAL (LOWEST PRICE)</div>
                     <div class="best-deal-content">
                         <div class="best-store-info">
-                            <span class="store-label">Tavsiya etilgan do'kon:</span>
-                            <h3 class="best-store-name" id="resBestStore">MacBro Tashkent</h3>
-                            <span class="savings-tag" id="resBestSavings">1,200,000 so'm tejamkor</span>
+                            <span class="store-label" data-i18n="recommendedStoreLabel">Recommended Retailer:</span>
+                            <h3 class="best-store-name" id="resBestStore">Retailer Name</h3>
+                            <span class="savings-tag" id="resBestSavings">Best Value</span>
                         </div>
                         <div class="best-price-group">
-                            <div class="price-uzs" id="resBestPriceUZS">19,800,000 so'm</div>
-                            <div class="price-usd" id="resBestPriceUSD">$1,540</div>
+                            <div class="price-uzs" id="resBestPriceUZS">0</div>
+                            <div class="price-usd" id="resBestPriceUSD">$0</div>
                         </div>
                         <a href="#" target="_blank" class="visit-store-btn" id="resBestStoreLink">
-                            <span>Do'konga o'tish</span>
+                            <span data-i18n="btnVisitStore">Visit Store</span>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                                 <polyline points="15 3 21 3 21 9"/>
@@ -279,8 +291,8 @@
 
                 <!-- 3. Barcha Do'konlar Narxlari Gridi -->
                 <div class="section-title-row">
-                    <h3>🏪 Do'konlar bo'yicha narxlar solishtiruvi</h3>
-                    <span class="sub-counter" id="resStoresCount">4 ta do'kon tahlil qilindi</span>
+                    <h3 data-i18n="storesSectionTitle">🏪 Price Comparison by Retailer</h3>
+                    <span class="sub-counter" id="resStoresCount">4 trusted stores analyzed</span>
                 </div>
                 <div class="stores-grid" id="resStoresGrid">
                     <!-- Do'konlar kartalari JS orqali dinamik chiziladi -->
@@ -289,7 +301,7 @@
                 <!-- 4. Texnik Xususiyatlar Matritsasi (Specs Matrix) -->
                 <div class="specs-section">
                     <div class="section-title-row">
-                        <h3>⚙️ Texnik Xususiyatlar Tahlili</h3>
+                        <h3 data-i18n="specsSectionTitle">⚙️ Technical Specifications Matrix</h3>
                     </div>
                     <div class="specs-table-card">
                         <div class="specs-grid" id="resSpecsGrid">
@@ -302,38 +314,36 @@
                 <div class="ai-recommendation-card">
                     <div class="rec-header">
                         <span class="rec-icon">💡</span>
-                        <h3>NeuroFox AI Ekspert Tavsiyasi</h3>
+                        <h3 data-i18n="recSectionTitle">NeuroFox AI Expert Recommendation</h3>
                     </div>
-                    <p class="rec-verdict" id="resVerdict">Xulosa...</p>
+                    <p class="rec-verdict" id="resVerdict">Verdict summary...</p>
                     <div class="rec-breakdown">
                         <div class="rec-column buy">
-                            <h4>✅ Kimlar uchun ideal tanlov:</h4>
-                            <p id="resWhoBuy">Dasturchilar va dizaynerlar</p>
+                            <h4 data-i18n="recWhoBuyTitle">✅ Ideal for:</h4>
+                            <p id="resWhoBuy">Target users...</p>
                         </div>
                         <div class="rec-column wait">
-                            <h4>⏳ Kimlar kutishi yoki boshqasini olishi kerak:</h4>
-                            <p id="resWhoWait">Oddiy ofis ishlariga...</p>
+                            <h4 data-i18n="recWhoWaitTitle">⏳ Who should consider alternatives:</h4>
+                            <p id="resWhoWait">Alternative users...</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ======================================================== -->
-            <!-- O'TGAN QIDIRUVLAR TARIXI (Search History)                -->
-            <!-- ======================================================== -->
+            <!-- O'TGAN QIDIRUVLAR TARIXI (Search History) -->
             <section class="history-section" id="historySection">
                 <div class="section-title-row">
-                    <h3>📜 O'tgan qidiruvlaringiz tarixi</h3>
+                    <h3 data-i18n="historySectionTitle">📜 Recent Search History</h3>
                 </div>
                 <div class="history-chips-row" id="historyChipsContainer">
-                    <span class="empty-history-text">Hozircha qidiruvlar tarixi yo'q</span>
+                    <span class="empty-history-text" data-i18n="historyEmpty">No search history yet</span>
                 </div>
             </section>
         </div>
 
     </div>
 
-    <!-- Frontend Logikasi -->
-    <script src="app.js"></script>
+    <!-- Frontend Asosiy ES Moduli (Modular Architecture) -->
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
