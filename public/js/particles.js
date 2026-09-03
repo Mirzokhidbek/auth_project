@@ -72,10 +72,12 @@ export class ParticleEngine {
             if (p.opacity <= 0 || p.y < -10) {
                 this.particles[i] = this.createParticle(false);
             } else {
+                const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                const alpha = isLight ? p.opacity * 0.35 : p.opacity;
                 this.ctx.beginPath();
                 this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                this.ctx.fillStyle = `hsla(${p.hue}, 95%, 55%, ${p.opacity})`;
-                this.ctx.shadowBlur = 10;
+                this.ctx.fillStyle = `hsla(${p.hue}, 95%, 55%, ${alpha})`;
+                this.ctx.shadowBlur = isLight ? 4 : 10;
                 this.ctx.shadowColor = `hsl(${p.hue}, 95%, 50%)`;
                 this.ctx.fill();
             }

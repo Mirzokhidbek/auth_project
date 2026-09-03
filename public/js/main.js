@@ -3,12 +3,16 @@
 // ============================================================================
 
 import { setLanguage, getLanguage, applyTranslations, t } from './i18n.js';
+import { ThemeManager } from './theme.js';
 import { ParticleEngine } from './particles.js';
 import { CardTiltEngine } from './tilt.js';
 import { AuthManager } from './auth.js';
 import { ComparisonManager } from './comparison.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Initialize Theme (Dark / Light)
+    const themeManager = new ThemeManager();
+
     // 1. DOM Elements
     const authCard = document.getElementById('authCard');
     const aiWorkspace = document.getElementById('aiWorkspace');
