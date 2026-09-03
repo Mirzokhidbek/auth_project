@@ -1,123 +1,77 @@
 // ============================================================================
-// FRONTEND INTERAKTIV LOGIKASI (Client-side JavaScript)
+// NEUROFOX FRONTEND INTERAKTIV LOGIKASI
 // ============================================================================
-// Ushbu faylda:
-// 1. Tablarni almashtirish (Sign In <-> Sign Up)
-// 2. Parolni ko'rsatish/yashirish
-// 3. Parol mustahkamligini jonli hisoblash (Password Strength)
-// 4. API bilan xavfsiz kuki almashinuvi (credentials: 'include')
-// 5. Sessiya holatini avtomatik aniqlash va Dashboardni ko'rsatish
-// ============================================================================
+// - Sign Up / Log In tab almashinuvi
+// - Parollarni ko'rsatish/yashirish
+// - Parol va tasdiqlash parolini solishtirish
+// - Xavfsiz HttpOnly kuki orqali autentifikatsiya (credentials: 'include')
+// - Tizimga kirgach Dashboardni ochish va Logout
 
 document.addEventListener('DOMContentLoaded', () => {
-    // DOM Elementlari
-    const tabSignIn = document.getElementById('tabSignIn');
+    // Tab elementlari
     const tabSignUp = document.getElementById('tabSignUp');
-    const tabIndicator = document.getElementById('tabIndicator');
-    const signInForm = document.getElementById('signInForm');
+    const tabLogIn = document.getElementById('tabLogIn');
+    const formTitle = document.getElementById('formTitle');
     const signUpForm = document.getElementById('signUpForm');
+    const logInForm = document.getElementById('logInForm');
     const alertBox = document.getElementById('alertBox');
     const authCard = document.getElementById('authCard');
     const dashboardCard = document.getElementById('dashboardCard');
 
-    // Tugmalar va formalar
-    const signInBtn = document.getElementById('signInBtn');
+    // Tugmalar
     const signUpBtn = document.getElementById('signUpBtn');
+    const logInBtn = document.getElementById('logInBtn');
     const logoutBtn = document.getElementById('logoutBtn');
-    const btnTestApi = document.getElementById('btnTestApi');
+    const btnRefreshApi = document.getElementById('btnRefreshApi');
 
     // Dashboard elementlari
     const dashUserName = document.getElementById('dashUserName');
     const dashUserEmail = document.getElementById('dashUserEmail');
     const userAvatar = document.getElementById('userAvatar');
-    const apiResponseBox = document.getElementById('apiResponseBox');
-
-    // Parol kiritish maydoni va mustahkamlik indikatori
-    const signUpPasswordInput = document.getElementById('signUpPassword');
-    const strengthBar = document.getElementById('strengthBar');
-    const strengthLabel = document.getElementById('strengthLabel');
+    const apiOutput = document.getElementById('apiOutput');
 
     // ========================================================================
-    // 1. TABLARNI ALMASHTIRISH (Sign In <-> Sign Up)
+    // 1. TAB ALMASHINUVI (Sign Up <-> Log In)
     // ========================================================================
-    tabSignIn.addEventListener('click', () => {
-        tabSignIn.classList.add('active');
+    tabSignUp.addEventListener('click', () => {
+        tabSignUp.classList.add('active');
+        tabLogIn.classList.remove('active');
+        formTitle.textContent = 'Create An Account';
+
+        signUpForm.classList.add('active');
+        logInForm.classList.remove('active');
+        hideAlert();
+    });
+
+    tabLogIn.addEventListener('click', () => {
+        tabLogIn.classList.add('active');
         tabSignUp.classList.remove('active');
-        tabIndicator.style.transform = 'translateX(0)';
-        
-        signInForm.classList.add('active');
+        formTitle.textContent = 'Welcome Back';
+
+        logInForm.classList.add('active');
         signUpForm.classList.remove('active');
         hideAlert();
     });
 
-    tabSignUp.addEventListener('click', () => {
-        tabSignUp.classList.add('active');
-        tabSignIn.classList.remove('active');
-        tabIndicator.style.transform = 'translateX(100%)';
-        
-        signUpForm.classList.add('active');
-        signInForm.classList.remove('active');
-        hideAlert();
-    });
-
     // ========================================================================
-    // 2. PAROLNI KO'RSATISH / YASHIRISH (Show / Hide Password)
+    // 2. PAROLNI KO'RSATISH / YASHIRISH (Eye Toggle)
     // ========================================================================
-    document.querySelectorAll('.toggle-password').forEach(btn => {
+    document.querySelectorAll('.eye-toggle').forEach(btn => {
         btn.addEventListener('click', () => {
             const targetId = btn.getAttribute('data-target');
             const input = document.getElementById(targetId);
             if (input.type === 'password') {
                 input.type = 'text';
-                btn.textContent = '🙈';
+                btn.style.color = '#f59e0b';
             } else {
                 input.type = 'password';
-                btn.textContent = '👁️';
+                btn.style.color = '';
             }
         });
     });
 
     // ========================================================================
-    // 3. PAROL MUSTAHKAMLIGINI JONLI TEKSHIRISH
-    // ========================================================================
-    if (signUpPasswordInput) {
-        signUpPasswordInput.addEventListener('input', (e) => {
-            const val = e.target.value;
-            let score = 0;
-
-            if (val.length >= 6) score += 25;
-            if (val.length >= 10) score += 25;
-            if (/[0-9]/.test(val)) score += 25;
-            if (/[^A-Za-z0-9]/.test(val)) score += 25;
-
-            strengthBar.style.width = score + '%';
-
-            if (score === 0) {
-                strengthBar.style.backgroundColor = 'transparent';
-                strengthLabel.textContent = 'Parol kiritilmadi';
-                strengthLabel.style.color = '#9ca3af';
-            } else if (score <= 25) {
-                strengthBar.style.backgroundColor = '#ef4444'; // Qizil
-                strengthLabel.textContent = 'Juda zaif';
-                strengthLabel.style.color = '#ef4444';
-            } else if (score <= 50) {
-                strengthBar.style.backgroundColor = '#f59e0b'; // To'q sariq
-                strengthLabel.textContent = 'O\'rtacha';
-                strengthLabel.style.color = '#f59e0b';
-            } else if (score <= 75) {
-                strengthBar.style.backgroundColor = '#3b82f6'; // Ko'k
-                strengthLabel.textContent = 'Yaxshi';
-                strengthLabel.style.color = '#3b82f6';
-            } else {
-                strengthBar.style.backgroundColor = '#10b981'; // Yashil
-                strengthLabel.textContent = 'Juda kuchli!';
-                strengthLabel.style.color = '#10b981';
-            }
-        });
-    }
-
-    // ========================================================================
-    // 4. BILDIRISHNOMALARNI BOSHQARISH (Alert Helper)
+    // 3. BILDIRISHNOMALAR (Alert Box)
     // ========================================================================
     function showAlert(type, message) {
         alertBox.className = `alert-box ${type}`;
@@ -130,188 +84,175 @@ document.addEventListener('DOMContentLoaded', () => {
         alertBox.textContent = '';
     }
 
-    // Tugma yuklanish holati (Spinner)
-    function setBtnLoading(button, isLoading, originalText) {
-        const textSpan = button.querySelector('.btn-text');
-        const spinner = button.querySelector('.spinner');
-
+    function setLoading(btn, isLoading, defaultText) {
+        const text = btn.querySelector('.btn-text');
+        const spinner = btn.querySelector('.btn-spinner');
         if (isLoading) {
-            button.disabled = true;
-            textSpan.textContent = 'Kutilmoqda...';
+            btn.disabled = true;
+            text.textContent = 'Processing...';
             spinner.style.display = 'block';
         } else {
-            button.disabled = false;
-            textSpan.textContent = originalText;
+            btn.disabled = false;
+            text.textContent = defaultText;
             spinner.style.display = 'none';
         }
     }
 
     // ========================================================================
-    // 5. SIGN IN (TIZIMGA KIRISH) SO'ROVI
+    // 4. SIGN UP SO'ROVI
     // ========================================================================
-    signInForm.addEventListener('submit', async (e) => {
+    signUpForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         hideAlert();
 
-        const email = document.getElementById('signInEmail').value.trim();
-        const password = document.getElementById('signInPassword').value;
+        const firstName = document.getElementById('signUpFirstName').value.trim();
+        const lastName = document.getElementById('signUpLastName').value.trim();
+        const email = document.getElementById('signUpEmail').value.trim();
+        const password = document.getElementById('signUpPassword').value;
+        const confirmPassword = document.getElementById('signUpConfirmPassword').value;
 
-        setBtnLoading(signInBtn, true, 'Tizimga kirish');
+        // 1. Parol tasdiqlanishini tekshirish
+        if (password !== confirmPassword) {
+            showAlert('error', 'Passwords do not match! Please verify.');
+            return;
+        }
+
+        if (password.length < 6) {
+            showAlert('error', 'Password must be at least 6 characters long.');
+            return;
+        }
+
+        const fullName = `${firstName} ${lastName}`.trim();
+        setLoading(signUpBtn, true, 'Create an Account');
 
         try {
-            // MUHIM XAVFSIZLIK JIHATI:
-            // credentials: 'include' parametri brauzerga server yuborgan HttpOnly kuki'ni
-            // avtomatik qabul qilish va saqlash imkonini beradi.
+            const res = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include', // HttpOnly kuki almashinuvi uchun
+                body: JSON.stringify({ name: fullName, email, password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                showAlert('success', 'Account created successfully!');
+                signUpForm.reset();
+                setTimeout(() => showDashboard(data.user), 600);
+            } else {
+                showAlert('error', data.message || 'Error creating account');
+            }
+        } catch (err) {
+            showAlert('error', 'Connection error. Please try again.');
+        } finally {
+            setLoading(signUpBtn, false, 'Create an Account');
+        }
+    });
+
+    // ========================================================================
+    // 5. LOG IN SO'ROVI
+    // ========================================================================
+    logInForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const email = document.getElementById('logInEmail').value.trim();
+        const password = document.getElementById('logInPassword').value;
+
+        setLoading(logInBtn, true, 'Log In');
+
+        try {
             const res = await fetch('/api/auth/signin', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                credentials: 'include', // Kuki almashinuvi uchun SHART!
+                credentials: 'include',
                 body: JSON.stringify({ email, password })
             });
 
             const data = await res.json();
 
             if (res.ok && data.success) {
-                showAlert('success', '✅ ' + data.message);
-                signInForm.reset();
-                setTimeout(() => {
-                    showDashboard(data.user);
-                }, 700);
+                showAlert('success', 'Welcome back!');
+                logInForm.reset();
+                setTimeout(() => showDashboard(data.user), 600);
             } else {
-                showAlert('error', '❌ ' + (data.message || 'Kirishda xatolik yuz berdi'));
+                showAlert('error', data.message || 'Invalid email or password');
             }
         } catch (err) {
-            showAlert('error', '❌ Server bilan bog\'lanishda xatolik yuz berdi');
+            showAlert('error', 'Connection error. Please try again.');
         } finally {
-            setBtnLoading(signInBtn, false, 'Tizimga kirish');
+            setLoading(logInBtn, false, 'Log In');
         }
     });
 
     // ========================================================================
-    // 6. SIGN UP (RO'YXATDAN O'TISH) SO'ROVI
-    // ========================================================================
-    signUpForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        hideAlert();
-
-        const name = document.getElementById('signUpName').value.trim();
-        const email = document.getElementById('signUpEmail').value.trim();
-        const password = document.getElementById('signUpPassword').value;
-
-        if (password.length < 6) {
-            showAlert('error', '❌ Parol kamida 6 ta belgidan iborat bo\'lishi kerak');
-            return;
-        }
-
-        setBtnLoading(signUpBtn, true, 'Ro\'yxatdan o\'tish');
-
-        try {
-            const res = await fetch('/api/auth/signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include', // Kuki almashinuvi uchun SHART!
-                body: JSON.stringify({ name, email, password })
-            });
-
-            const data = await res.json();
-
-            if (res.ok && data.success) {
-                showAlert('success', '🎉 ' + data.message);
-                signUpForm.reset();
-                setTimeout(() => {
-                    showDashboard(data.user);
-                }, 700);
-            } else {
-                showAlert('error', '❌ ' + (data.message || 'Ro\'yxatdan o\'tishda xatolik yuz berdi'));
-            }
-        } catch (err) {
-            showAlert('error', '❌ Server bilan bog\'lanishda xatolik yuz berdi');
-        } finally {
-            setBtnLoading(signUpBtn, false, 'Ro\'yxatdan o\'tish');
-        }
-    });
-
-    // ========================================================================
-    // 7. DASHBOARDNI KO'RSATISH VA FOYDALANUVCHI MA'LUMOTLARI
+    // 6. DASHBOARD KO'RINIShI VA VERIFIKATSIYA
     // ========================================================================
     function showDashboard(user) {
         authCard.style.display = 'none';
         dashboardCard.style.display = 'block';
 
-        dashUserName.textContent = user.name || 'Foydalanuvchi';
+        dashUserName.textContent = user.name || 'User';
         dashUserEmail.textContent = user.email || '';
         userAvatar.textContent = (user.name ? user.name[0] : 'U').toUpperCase();
 
-        // Himoyalangan API'ni avtomatik tekshirib ko'rsatamiz
-        testProtectedApi();
+        verifyProtectedApi();
     }
 
-    // ========================================================================
-    // 8. HIMOYALANGAN API TESTI (GET /api/auth/me)
-    // ========================================================================
-    async function testProtectedApi() {
-        apiResponseBox.textContent = 'Serverdan ma\'lumot olinmoqda...';
+    async function verifyProtectedApi() {
+        apiOutput.textContent = 'Verifying HttpOnly credentials...';
         try {
-            // Ushbu so'rovda hech qanday token headerga qo'shilmaydi!
-            // Brauzer o'zidagi HttpOnly kukini avtomatik serverga olib boradi.
             const res = await fetch('/api/auth/me', {
                 method: 'GET',
                 credentials: 'include'
             });
-
             const data = await res.json();
-            apiResponseBox.textContent = JSON.stringify(data, null, 2);
+            apiOutput.textContent = JSON.stringify(data, null, 2);
         } catch (err) {
-            apiResponseBox.textContent = 'API so\'rovida xatolik yuz berdi: ' + err.message;
+            apiOutput.textContent = 'API call failed: ' + err.message;
         }
     }
 
-    btnTestApi.addEventListener('click', testProtectedApi);
+    if (btnRefreshApi) {
+        btnRefreshApi.addEventListener('click', verifyProtectedApi);
+    }
 
     // ========================================================================
-    // 9. LOGOUT (TIZIMDAN CHIQISH)
+    // 7. LOGOUT
     // ========================================================================
     logoutBtn.addEventListener('click', async () => {
         try {
-            const res = await fetch('/api/auth/signout', {
+            await fetch('/api/auth/signout', {
                 method: 'POST',
                 credentials: 'include'
             });
-
-            const data = await res.json();
-
-            // Formani yana ko'rsatamiz
-            dashboardCard.style.display = 'none';
-            authCard.style.display = 'block';
-            showAlert('success', '👋 ' + (data.message || 'Tizimdan muvaffaqiyatli chiqdingiz'));
-        } catch (err) {
-            console.error('Logout xatoligi:', err);
-            dashboardCard.style.display = 'none';
-            authCard.style.display = 'block';
+        } catch (e) {
+            console.error('Logout error:', e);
         }
+        dashboardCard.style.display = 'none';
+        authCard.style.display = 'grid';
+        showAlert('success', 'You have been signed out successfully.');
     });
 
     // ========================================================================
-    // 10. SAHIFA YUKLANGANDA: Oldingi sessiyani tekshirish
+    // 8. OLDINGI SESSIYANI TEKSHIRISH
     // ========================================================================
-    async function checkExistingSession() {
+    async function checkSession() {
         try {
             const res = await fetch('/api/auth/me', {
                 method: 'GET',
                 credentials: 'include'
             });
-
             if (res.ok) {
                 const data = await res.json();
                 if (data.success && data.user) {
                     showDashboard(data.user);
                 }
             }
-        } catch (err) {
-            // Agar sessiya bo'lmasa, hech narsa qilmaydi, login formasi turaveradi
+        } catch (e) {
+            // Sessiya yo'q bo'lsa hech narsa qilmaydi
         }
     }
 
-    // Sahifa ochilganda mavjud sessiyani tekshirish
-    checkExistingSession();
+    checkSession();
 });
