@@ -1,0 +1,14 @@
+# Maxfiy ma'lumotlar va kalitlar (Hech qachon GitHubga yuklanmasligi kerak!)
+.env
+.env.local
+
+# Bog'liqliklar (katta hajmdagi kutubxonalar)
+node_modules/
+
+# Tizim va jurnal fayllari
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
